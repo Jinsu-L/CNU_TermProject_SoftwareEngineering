@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <children>
+      <TableView layoutX="34.0" layoutY="35.0" prefHeight="367.0" prefWidth="691.0">
+        <columns>
+          <TableColumn prefWidth="491.0" text="상품명" />
+          <TableColumn prefWidth="97.0" text="수량" />
+            <TableColumn prefWidth="102.0" text="금액" />
+        </columns>
+      </TableView>
+      <TabPane layoutX="743.0" layoutY="34.0" prefHeight="367.0" prefWidth="423.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="   세트   ">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="15.0" layoutY="22.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="동하버거세트" />
+                        <Button layoutX="105.0" layoutY="22.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="동의버거세트" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="    단품    ">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="15.0" layoutY="22.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="동하버거" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="    사이드    ">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="449.0" />
+              </content>
+            </Tab>
+            <Tab text="    음료수    ">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="    기타    ">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
