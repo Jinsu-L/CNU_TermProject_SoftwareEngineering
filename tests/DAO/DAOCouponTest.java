@@ -8,14 +8,14 @@ import static org.junit.Assert.*;
 public class DAOCouponTest {
 
     @Test
-    public void testGetCouponNumber() {
+    public void testGetCouponNumber() throws Exception{
         String couponNumber = "ABCDEFGHIJ";
         DAOCoupon coupon = new DAOCoupon(couponNumber, 5000);
         assertThat(coupon.getCouponNumber(), is(couponNumber));
     }
 
     @Test
-    public void testSetCouponNumber() {
+    public void testSetCouponNumber() throws Exception{
         String couponNumber = "ABCDEFGHIJ";
         String newCouponNumber = "JIHGFEDCBA";
         DAOCoupon coupon = new DAOCoupon(couponNumber, 5000);
@@ -24,18 +24,19 @@ public class DAOCouponTest {
     }
 
     @Test
-    public void testGetCouponAmount() {
+    public void testGetCouponAmount() throws Exception{
         int couponAmount = 5000;
         DAOCoupon coupon = new DAOCoupon("ABCDEFGHIJ", couponAmount);
         assertThat(coupon.getCouponAmount(), is(couponAmount));
     }
 
     @Test
-    public void testSetCouponAmount() {
+    public void testSetCouponAmount() throws Exception{
         int couponAmount = 10000;
         int newCouponAmount = 4700;
         DAOCoupon coupon = new DAOCoupon("ABCDEFGHIJ", couponAmount);
         coupon.setCouponAmount(newCouponAmount);
         assertThat(coupon.getCouponAmount(), is(newCouponAmount));
     }
+
 }
