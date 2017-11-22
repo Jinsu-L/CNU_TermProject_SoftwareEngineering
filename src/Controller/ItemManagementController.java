@@ -1,4 +1,13 @@
 package Controller;
 
-public class ItemManagementController {
+import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ItemManagementController implements Initializable {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        
+    }
 }
