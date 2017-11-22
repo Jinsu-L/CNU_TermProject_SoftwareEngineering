@@ -8,14 +8,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ShoppingBasketController">
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ShoppingBasketController">
     <children>
         <TableView layoutX="34.0" layoutY="35.0" prefHeight="367.0" prefWidth="691.0">
             <columns>
-                <TableColumn prefWidth="491.0" text="상품명"/>
-                <TableColumn prefWidth="97.0" text="수량"/>
-                <TableColumn prefWidth="102.0" text="금액"/>
+                <TableColumn prefWidth="491.0" text="상품명" />
+                <TableColumn prefWidth="97.0" text="수량" />
+                <TableColumn prefWidth="102.0" text="금액" />
             </columns>
         </TableView>
         <TabPane layoutX="743.0" layoutY="34.0" prefHeight="550.0" prefWidth="423.0" tabClosingPolicy="UNAVAILABLE">
@@ -24,10 +23,8 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="499.0" prefWidth="423.0">
                             <children>
-                                <Button layoutX="15.0" layoutY="22.0" mnemonicParsing="false" prefHeight="100.0"
-                                        prefWidth="100.0" text="동하버거세트"/>
-                                <Button layoutX="130.0" layoutY="22.0" mnemonicParsing="false" prefHeight="100.0"
-                                        prefWidth="100.0" text="동의버거세트"/>
+                                <Button layoutX="15.0" layoutY="22.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="동하버거세트" />
+                                <Button layoutX="130.0" layoutY="22.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="동의버거세트" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -36,46 +33,38 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Button layoutX="15.0" layoutY="22.0" mnemonicParsing="false" prefHeight="100.0"
-                                        prefWidth="100.0" text="동하버거"/>
+                                <Button layoutX="15.0" layoutY="22.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="동하버거" />
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
                 <Tab text="    사이드    ">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="449.0"/>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="449.0" />
                     </content>
                 </Tab>
                 <Tab text="    음료수    ">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                 </Tab>
                 <Tab text="    기타    ">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                 </Tab>
             </tabs>
         </TabPane>
-        <TextField layoutX="34.0" layoutY="402.0"/>
-        <Button layoutX="208.0" layoutY="402.0" mnemonicParsing="false" text="적용"/>
-        <Button layoutX="35.0" layoutY="450.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0"
-                text="    관리    "/>
-        <Button layoutX="36.0" layoutY="510.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="매출현황"/>
-        <Button layoutX="255.0" layoutY="450.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0"
-                text="쿠폰관리"/>
-        <Button layoutX="145.0" layoutY="450.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0"
-                text="상품관리"/>
-        <Button layoutX="145.0" layoutY="510.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0"
-                text="비밀번호 변경"/>
-        <Button layoutX="255.0" layoutY="510.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0"
-                text="로그아웃"/>
-        <Button layoutX="471.0" layoutY="406.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="119.0"
-                text="선택 삭제"/>
-        <Button layoutX="606.0" layoutY="405.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="119.0"
-                text="전체 삭제"/>
-        <Button layoutX="471.0" layoutY="481.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="256.0" text="결제"/>
+        <TextField layoutX="34.0" layoutY="402.0" />
+        <Button layoutX="208.0" layoutY="402.0" mnemonicParsing="false" text="적용" />
+        <Button layoutX="35.0" layoutY="450.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="    관리    " />
+        <Button layoutX="36.0" layoutY="510.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="매출현황" />
+        <Button layoutX="255.0" layoutY="450.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="쿠폰발급" />
+        <Button fx:id="itemMangementBtn" layoutX="145.0" layoutY="450.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="상품관리" />
+        <Button layoutX="145.0" layoutY="510.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="비밀번호 변경" />
+        <Button layoutX="255.0" layoutY="510.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="로그아웃" />
+        <Button layoutX="471.0" layoutY="406.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="119.0" text="선택 삭제" />
+        <Button layoutX="606.0" layoutY="405.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="119.0" text="전체 삭제" />
+        <Button layoutX="471.0" layoutY="481.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="256.0" text="결제" />
     </children>
 </AnchorPane>
