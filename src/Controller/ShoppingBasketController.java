@@ -2,8 +2,12 @@ package Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,15 +38,22 @@ public class ShoppingBasketController implements Initializable{
     @FXML private Button itemMangementBtn;
 
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        // Button was clicked, do something...
-        System.out.println("ButtonClick!!");
+    private void handleButtonAction(ActionEvent event) throws Exception{
+        Parent ItemManagement = FXMLLoader.load(getClass().getResource("/View/ItemManagement.fxml"));
+        Scene scene = new Scene(ItemManagement);
+        Stage primaryStage = (Stage)itemMangementBtn.getScene().getWindow(); // 현재 윈도우 가져오기
+        primaryStage.setScene(scene);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        itemMangementBtn.setOnAction(event -> handleButtonAction(event));
-
+        itemMangementBtn.setOnAction(event -> {
+            try {
+                handleButtonAction(event);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 }

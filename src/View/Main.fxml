@@ -60,7 +60,7 @@
         <Button layoutX="35.0" layoutY="450.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="    관리    " />
         <Button layoutX="36.0" layoutY="510.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="매출현황" />
         <Button layoutX="255.0" layoutY="450.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="쿠폰발급" />
-        <Button fx:id="itemMangementBtn" layoutX="145.0" layoutY="450.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="상품관리" />
+        <Button fx:id="itemMangementBtn"  layoutX="145.0" layoutY="450.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="상품관리" />
         <Button layoutX="145.0" layoutY="510.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="비밀번호 변경" />
         <Button layoutX="255.0" layoutY="510.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="로그아웃" />
         <Button layoutX="471.0" layoutY="406.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="119.0" text="선택 삭제" />
