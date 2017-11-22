@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <children>
+      <TableView layoutX="34.0" layoutY="34.0" prefHeight="438.0" prefWidth="765.0">
+        <columns>
+          <TableColumn prefWidth="407.0" text="상품명" />
+          <TableColumn prefWidth="177.0" text="카테고리" />
+            <TableColumn prefWidth="180.0" text="금액" />
+        </columns>
+      </TableView>
+      <ChoiceBox layoutX="856.0" layoutY="161.0" prefHeight="40.0" prefWidth="150.0" />
+      <Button layoutX="34.0" layoutY="526.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="닫기" />
+      <TextField layoutX="855.0" layoutY="88.0" prefHeight="40.0" prefWidth="200.0" />
+      <Text layoutX="853.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="상품명" />
+      <Text layoutX="856.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="카테고리" />
+      <TextField layoutX="857.0" layoutY="241.0" prefHeight="40.0" prefWidth="200.0" />
+      <Text layoutX="856.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="금액" />
+      <Button layoutX="831.0" layoutY="487.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="등록" />
+      <Button layoutX="940.0" layoutY="486.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="수정" />
+      <Button layoutX="1050.0" layoutY="486.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="삭제" />
+   </children>
+</AnchorPane>
