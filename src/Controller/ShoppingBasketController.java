@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -47,67 +48,75 @@ public class ShoppingBasketController implements Initializable{
     @FXML private Button applyBtn;
 
     @FXML
-    private void itemManagementButtonAction(ActionEvent event) throws Exception{
-        Parent ItemManagement = FXMLLoader.load(getClass().getResource("/View/ItemManagement.fxml"));
+    private void itemManagementButtonAction(ActionEvent event)  {
+        Parent ItemManagement = null;
+        try {
+            ItemManagement = FXMLLoader.load(getClass().getResource("/View/ItemManagement.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Scene scene = new Scene(ItemManagement);
         Stage primaryStage = (Stage)itemMangementBtn.getScene().getWindow(); // 현재 윈도우 가져오기
         primaryStage.setScene(scene);
     }
 
     @FXML
-    private void mangementButtonAction(ActionEvent event) throws Exception{
+    private void mangementButtonAction(ActionEvent event) {
         System.out.println("managementBtn");
     }
 
     @FXML
-    private void couponButtonAction(ActionEvent event) throws Exception{
+    private void couponButtonAction(ActionEvent event) {
         System.out.println("couponBtn");
     }
 
     @FXML
-    private void salesStatusButtonAction(ActionEvent event) throws Exception{
+    private void salesStatusButtonAction(ActionEvent event) {
         System.out.println("salesStatusBtn");
     }
 
     @FXML
-    private void pwChgButtonAction(ActionEvent event) throws Exception{
+    private void pwChgButtonAction(ActionEvent event) {
         System.out.println("pwChgBtn");
     }
 
     @FXML
-    private void logoutButtonAction(ActionEvent event) throws Exception{
+    private void logoutButtonAction(ActionEvent event) {
         System.out.println("logoutBtn");
     }
 
     @FXML
-    private void slcDelButtonAction(ActionEvent event) throws Exception{
+    private void slcDelButtonAction(ActionEvent event) {
         System.out.println("slcDelBtn");
     }
 
     @FXML
-    private void allDelButtonAction(ActionEvent event) throws Exception{
+    private void allDelButtonAction(ActionEvent event) {
         System.out.println("allDelBtn");
     }
 
     @FXML
-    private void payButtonAction(ActionEvent event) throws Exception{
+    private void payButtonAction(ActionEvent event) {
         System.out.println("payBtn");
     }
 
     @FXML
-    private void applyButtonAction(ActionEvent event) throws Exception{
+    private void applyButtonAction(ActionEvent event) {
         System.out.println("applyBtn");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        itemMangementBtn.setOnAction(event -> {
-            try {
-                itemManagementButtonAction(event);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        itemMangementBtn.setOnAction(this::itemManagementButtonAction);
+        mangementBtn.setOnAction(this::mangementButtonAction);
+        couponBtn.setOnAction(this::couponButtonAction);
+        salesStatusBtn.setOnAction(this::salesStatusButtonAction);
+        pwChgBtn.setOnAction(this::pwChgButtonAction);
+        logoutBtn.setOnAction(this::logoutButtonAction);
+        slcDelBtn.setOnAction(this::slcDelButtonAction);
+        allDelBtn.setOnAction(this::allDelButtonAction);
+        payBtn.setOnAction(this::payButtonAction);
+        applyBtn.setOnAction(this::applyButtonAction);
     }
 
 }
