@@ -36,9 +36,18 @@ import java.util.ResourceBundle;
 
 public class ShoppingBasketController implements Initializable{
     @FXML private Button itemMangementBtn;
+    @FXML private Button mangementBtn;
+    @FXML private Button couponBtn;
+    @FXML private Button salesStatusBtn;
+    @FXML private Button pwChgBtn;
+    @FXML private Button logoutBtn;
+    @FXML private Button slcDelBtn;
+    @FXML private Button allDelBtn;
+    @FXML private Button payBtn;
+    @FXML private Button applyBtn;
 
     @FXML
-    private void handleButtonAction(ActionEvent event) throws Exception{
+    private void itemManagementButtonAction(ActionEvent event) throws Exception{
         Parent ItemManagement = FXMLLoader.load(getClass().getResource("/View/ItemManagement.fxml"));
         Scene scene = new Scene(ItemManagement);
         Stage primaryStage = (Stage)itemMangementBtn.getScene().getWindow(); // 현재 윈도우 가져오기
@@ -49,7 +58,7 @@ public class ShoppingBasketController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         itemMangementBtn.setOnAction(event -> {
             try {
-                handleButtonAction(event);
+                itemManagementButtonAction(event);
             } catch (Exception e) {
                 e.printStackTrace();
             }
