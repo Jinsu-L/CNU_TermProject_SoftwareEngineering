@@ -61,46 +61,43 @@ public class ShoppingBasketController implements Initializable{
 
     @FXML
     private void couponButtonAction(ActionEvent event) throws Exception{
-
+        System.out.println("couponBtn");
     }
 
     @FXML
     private void salesStatusButtonAction(ActionEvent event) throws Exception{
-
+        System.out.println("salesStatusBtn");
     }
 
     @FXML
     private void pwChgButtonAction(ActionEvent event) throws Exception{
-
+        System.out.println("pwChgBtn");
     }
 
     @FXML
     private void logoutButtonAction(ActionEvent event) throws Exception{
-
+        System.out.println("logoutBtn");
     }
 
     @FXML
     private void slcDelButtonAction(ActionEvent event) throws Exception{
-
+        System.out.println("slcDelBtn");
     }
 
     @FXML
     private void allDelButtonAction(ActionEvent event) throws Exception{
-
+        System.out.println("allDelBtn");
     }
 
     @FXML
     private void payButtonAction(ActionEvent event) throws Exception{
-
+        System.out.println("payBtn");
     }
 
     @FXML
     private void applyButtonAction(ActionEvent event) throws Exception{
-
+        System.out.println("applyBtn");
     }
-
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
