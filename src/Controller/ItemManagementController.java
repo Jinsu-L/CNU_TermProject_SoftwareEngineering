@@ -19,9 +19,12 @@ import java.util.ResourceBundle;
 
 public class ItemManagementController implements Initializable {
     @FXML private Button backBtn;
+    @FXML private Button registerBtn;
+    @FXML private Button modifyBtn;
+    @FXML private Button deleteBtn;
 
     @FXML
-    private void backButtonAction(ActionEvent event)  {
+    private void backButtonAction(ActionEvent event) {
         Parent ShoppingBasket = null;
         try {
             ShoppingBasket = FXMLLoader.load(getClass().getResource("/View/Main.fxml"));
@@ -29,12 +32,30 @@ public class ItemManagementController implements Initializable {
             e.printStackTrace();
         }
         Scene scene = new Scene(ShoppingBasket);
-        Stage primaryStage = (Stage)backBtn.getScene().getWindow(); // 현재 윈도우 가져오기
+        Stage primaryStage = (Stage) backBtn.getScene().getWindow();
         primaryStage.setScene(scene);
+    }
+
+    @FXML
+    private void registerButtonAction(ActionEvent event) {
+        System.out.println("register");
+    }
+
+    @FXML
+    private void modifyButtonAction(ActionEvent event) {
+        System.out.println("modify");
+    }
+
+    @FXML
+    private void deleteButtonAction(ActionEvent event) {
+        System.out.println("delete");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         backBtn.setOnAction(this::backButtonAction);
+        registerBtn.setOnAction(this::registerButtonAction);
+        modifyBtn.setOnAction(this::modifyButtonAction);
+        deleteBtn.setOnAction(this::deleteButtonAction);
     }
 }

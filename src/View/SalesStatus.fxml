@@ -19,7 +19,7 @@
       <Button fx:id="backBtn" layoutX="38.0" layoutY="27.0" mnemonicParsing="false" text="돌아가기" />
       <DatePicker layoutX="695.0" layoutY="56.0" />
       <DatePicker layoutX="909.0" layoutY="56.0" />
-      <Button layoutX="1119.0" layoutY="55.0" mnemonicParsing="false" text="조회" />
+      <Button fx:id="searchBtn" layoutX="1119.0" layoutY="55.0" mnemonicParsing="false" text="조회" />
       <Text layoutX="628.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="조회기간" />
    </children>
 </AnchorPane>

@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 
 public class SalesStatusController implements Initializable {
     @FXML private Button backBtn;
+    @FXML private Button searchBtn;
 
     @FXML
     private void backButtonAction(ActionEvent event)  {
@@ -29,12 +30,18 @@ public class SalesStatusController implements Initializable {
             e.printStackTrace();
         }
         Scene scene = new Scene(ShoppingBasket);
-        Stage primaryStage = (Stage)backBtn.getScene().getWindow(); // 현재 윈도우 가져오기
+        Stage primaryStage = (Stage)backBtn.getScene().getWindow();
         primaryStage.setScene(scene);
+    }
+
+    @FXML
+    private void searchButtonAction(ActionEvent event) {
+        System.out.println("search");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         backBtn.setOnAction(this::backButtonAction);
+        searchBtn.setOnAction(this::searchButtonAction);
     }
 }

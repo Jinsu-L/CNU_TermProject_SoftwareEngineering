@@ -25,8 +25,8 @@
         <Text layoutX="856.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="카테고리"/>
         <TextField layoutX="857.0" layoutY="241.0" prefHeight="40.0" prefWidth="200.0"/>
         <Text layoutX="856.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="금액"/>
-        <Button layoutX="831.0" layoutY="487.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="등록"/>
-        <Button layoutX="940.0" layoutY="486.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="수정"/>
-        <Button layoutX="1050.0" layoutY="486.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="삭제"/>
+        <Button fx:id="registerBtn" layoutX="831.0" layoutY="487.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="등록"/>
+        <Button fx:id="modifyBtn" layoutX="940.0" layoutY="486.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="수정"/>
+        <Button fx:id="deleteBtn" layoutX="1050.0" layoutY="486.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="삭제"/>
     </children>
 </AnchorPane>
