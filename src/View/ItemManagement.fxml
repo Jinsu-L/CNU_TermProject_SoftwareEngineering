@@ -19,7 +19,7 @@
             </columns>
         </TableView>
         <ChoiceBox layoutX="856.0" layoutY="161.0" prefHeight="40.0" prefWidth="150.0"/>
-        <Button layoutX="34.0" layoutY="526.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="닫기"/>
+        <Button fx:id="backBtn" layoutX="34.0" layoutY="526.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="닫기"/>
         <TextField layoutX="855.0" layoutY="88.0" prefHeight="40.0" prefWidth="200.0"/>
         <Text layoutX="853.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="상품명"/>
         <Text layoutX="856.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="카테고리"/>

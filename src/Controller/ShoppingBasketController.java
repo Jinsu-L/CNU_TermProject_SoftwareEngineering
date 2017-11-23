@@ -73,6 +73,15 @@ public class ShoppingBasketController implements Initializable{
     @FXML
     private void salesStatusButtonAction(ActionEvent event) {
         System.out.println("salesStatusBtn");
+        Parent SalesStatus = null;
+        try {
+            SalesStatus = FXMLLoader.load(getClass().getResource("/View/SalesStatus.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(SalesStatus);
+        Stage primaryStage = (Stage)salesStatusBtn.getScene().getWindow(); // 현재 윈도우 가져오기
+        primaryStage.setScene(scene);
     }
 
     @FXML

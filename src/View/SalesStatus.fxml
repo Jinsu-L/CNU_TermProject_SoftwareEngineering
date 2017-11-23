@@ -16,7 +16,7 @@
           <TableColumn prefWidth="371.0" text="총 매출금액" />
         </columns>
       </TableView>
-      <Button layoutX="38.0" layoutY="27.0" mnemonicParsing="false" text="돌아가기" />
+      <Button fx:id="backBtn" layoutX="38.0" layoutY="27.0" mnemonicParsing="false" text="돌아가기" />
       <DatePicker layoutX="695.0" layoutY="56.0" />
       <DatePicker layoutX="909.0" layoutY="56.0" />
       <Button layoutX="1119.0" layoutY="55.0" mnemonicParsing="false" text="조회" />
