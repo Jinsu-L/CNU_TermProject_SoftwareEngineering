@@ -1,15 +1,14 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -17,9 +16,6 @@ import java.util.Optional;
  */
 
 public class App extends Application {
-    private Dialog dialog;
-    private Text actionStatus;
-    private final String defaultVal = "Default text";
 
     public static void main(String[] args) {
         launch(args);
@@ -35,58 +31,73 @@ public class App extends Application {
         loginDialog(primaryStage);
     }
 
-    public void loginDialog(Stage primaryStage) {
+    private void loginDialog(Stage primaryStage) {
 
-        /* Todo. overlay를 넣는 코드 작성해야함 */
+        /* Todo overlay를 넣는 코드 작성해야함 */
 
-        displayLoginDialog();
+        displayLoginDialog(primaryStage);
     }
 
-    private void displayLoginDialog() {
+    private void displayLoginDialog(Stage owner) {
+        String message = "로그인";
+        boolean pass = false;
+        while (!pass) {
+            // Show dialog
+            Optional input = getDialog(owner, message).showAndWait();
 
-        // Custom dialog
-        Dialog<String> dialog = new Dialog();
-        dialog.setTitle("Login");
-        dialog.setHeaderText("Input Password");
-        dialog.setResizable(true);
-
-        // Widgets
-        Label label1 = new Label("Password : ");
-        PasswordField passwordField = new PasswordField();
-
-        // Create layout and add to dialog
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(20, 35, 20, 35));
-        grid.add(label1, 1, 1); // col=1, row=1
-        grid.add(passwordField, 2, 1);
-        dialog.getDialogPane().setContent(grid);
-
-        // Add button to dialog
-        ButtonType buttonTypeOk = new ButtonType("로그인", ButtonBar.ButtonData.OK_DONE);
-        ButtonType buttonTypeCancel = new ButtonType("취소", ButtonBar.ButtonData.CANCEL_CLOSE);
-        dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
-        dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
-
-        // Result converter for dialog
-        dialog.setResultConverter(new Callback<ButtonType, String>() {
-            @Override
-            public String call(ButtonType param) {
-                if(param == buttonTypeOk)
-                    return passwordField.getText();
-                System.exit(0);
-                return null;
+            if (input.isPresent()) {
+                if ((boolean) input.get())
+                    pass = true;
+                else
+                    message = "비밀번호 재입력!!";
             }
-        });
-
-        // Show dialog
-        Optional result = dialog.showAndWait();
-
-        if (result.isPresent()) {
-
-            System.out.println(result.get());
         }
+    }
+
+    private Dialog getDialog(Stage owner, String message) {
+        Dialog<Boolean> dialog = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("View/Login.fxml")
+            );
+            dialog = new Dialog();
+            dialog.setResizable(false);
+            dialog.setDialogPane(loader.load());
+            dialog.initOwner(owner);
+            dialog.initModality(Modality.WINDOW_MODAL);
+            dialog.initStyle(StageStyle.UTILITY);
+
+            // Add button to dialog
+            ButtonType buttonTypeOk = new ButtonType("로그인", ButtonBar.ButtonData.OK_DONE);
+            ButtonType buttonTypeCancel = new ButtonType("취소", ButtonBar.ButtonData.CANCEL_CLOSE);
+            dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+            dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
+            GridPane grid = (GridPane) dialog.getDialogPane().getContent();
+            PasswordField passwordField = new PasswordField();
+            Label label = new Label(message);
+            grid.add(label,0,0);
+            grid.add(passwordField, 0, 1);
+            passwordField.getScene();
+
+            // Result converter for dialog
+            dialog.setResultConverter(param -> {
+                if (param == buttonTypeOk) {
+                    return checkPassword(passwordField.getText());
+                }
+                System.exit(0); // 시스템 종료
+                return false;
+            });
+        } catch (IOException e) {
+            System.out.println("Unable to load dialog FXML");
+            e.printStackTrace();
+        }
+        return dialog;
+    }
+
+
+    /* Todo 여기서 Password 확인해서 로그인 처리 해야 */
+    private boolean checkPassword(String input) {
+        String password = "admin";
+        return input.equals(password);
     }
 }
