@@ -19,7 +19,7 @@ public class DAOPayment {
         this.paymentAmount=paymentAmount;
         this.paymentType=Type.CASH;
         this.paymentStatus=false;
-        this.paymentDate= new SimpleDateFormat("yyyy:MM:DD").format( new Date());
+        this.paymentDate= new SimpleDateFormat("yyyy:mm:dd").format( new Date());
     }
 
     public DAOPayment(int paymentNumber,int paymentAmount, Type type) {
@@ -27,7 +27,7 @@ public class DAOPayment {
         this.paymentAmount=paymentAmount;
         this.paymentType=type;
         this.paymentStatus=false;
-        this.paymentDate= new SimpleDateFormat("yyyy:MM:DD").format( new Date());
+        this.paymentDate= new SimpleDateFormat("yyyy:mm:dd").format( new Date());
     }
 
     public int getPaymentNumber() {
