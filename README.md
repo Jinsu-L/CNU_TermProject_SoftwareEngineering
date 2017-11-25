@@ -8,14 +8,22 @@ UI : JavaFx
 DB : MySQL
 ````
 
-## 로그인 비밀번호
+## Pos 로그인 비밀번호
 ````
 admin
 
 ````
 
+## DB 계정
+````
+ID : root
+PW : root
+
+````
+
 ## DB Setting 쿼리 값
 ````
+
 DB 미구현
 
 ````
