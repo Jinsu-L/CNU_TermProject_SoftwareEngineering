@@ -13,73 +13,70 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class PasswordChgController implements Initializable {
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        System.out.println("ini");
     }
 
-    public void showLoginDialog(Stage owner) {
-        String message = "로그인";
-        boolean pass = false;
-        while (!pass) {
+    public void showPwdChgDialog(Stage owner) {
+        boolean pass = true;
+        while (pass) {
             // Show dialog
-            Optional input = getDialog(owner, message).showAndWait();
+            Optional input = getDialog(owner).showAndWait();
 
             if (input.isPresent()) {
-                if ((boolean) input.get())
-                    pass = true;
-                else
-                    message = "비밀번호 재입력!!";
+                pass = (boolean) input.get();
             }
         }
     }
 
-    private Dialog getDialog(Stage owner, String message) {
-        Dialog dialog = null;
+    private Dialog getDialog(Stage owner) {
+        Dialog<Boolean> dialog = null;
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/View/Login.fxml")
-            );
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/PasswordChg.fxml"));
+
+
             dialog = new Dialog();
             dialog.setResizable(false);
             dialog.setDialogPane(loader.load());
             dialog.initOwner(owner);
             dialog.initModality(Modality.WINDOW_MODAL);
             dialog.initStyle(StageStyle.UTILITY);
-
             // Add button to dialog
-            ButtonType buttonTypeOk = new ButtonType("로그인", ButtonBar.ButtonData.OK_DONE);
+            ButtonType buttonTypeOk = new ButtonType("확인", ButtonBar.ButtonData.OK_DONE);
             ButtonType buttonTypeCancel = new ButtonType("취소", ButtonBar.ButtonData.CANCEL_CLOSE);
             dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
             dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
             GridPane grid = (GridPane) dialog.getDialogPane().getContent();
-            PasswordField passwordField = new PasswordField();
-            Label label = new Label(message);
-            grid.add(label,0,0);
-            grid.add(passwordField, 0, 1);
-            passwordField.getScene();
+            TextField passwordTextField = new TextField();
+            passwordTextField.setPromptText("기존 비밀번호");
+            TextField chgPasswordTextField = new TextField();
+            chgPasswordTextField.setPromptText("변경할 비밀번호");
+            TextField chgPasswordConfirmTextField = new TextField();
+            chgPasswordConfirmTextField.setPromptText("변경할 비밀번호 확인");
+
+            grid.add(passwordTextField, 0, 0);
+            grid.add(chgPasswordTextField, 0, 1);
+            grid.add(chgPasswordConfirmTextField, 0, 2);
 
             // Result converter for dialog
             dialog.setResultConverter(param -> {
                 if (param == buttonTypeOk) {
-                    return checkPassword(passwordField.getText());
+                    System.out.println(passwordTextField.getText());
+                    System.out.println(chgPasswordTextField.getText());
+                    System.out.println(chgPasswordConfirmTextField.getText());
+                    return true;
                 }
-                System.exit(0); // 시스템 종료
                 return false;
             });
+
         } catch (IOException e) {
             System.out.println("Unable to load dialog FXML");
             e.printStackTrace();
         }
         return dialog;
-    }
-
-
-    /* Todo 여기서 Password 확인해서 로그인 처리 해야 */
-    private boolean checkPassword(String input) {
-        String password = "admin";
-        return input.equals(password);
     }
 }
