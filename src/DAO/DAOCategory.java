@@ -1,20 +1,20 @@
 package DAO;
 
 public class DAOCategory {
-    private String CategoryName;
+    private String categoryName;
 
     public DAOCategory() {
     }
 
     public DAOCategory(String categoryName) {
-        CategoryName = categoryName;
+        categoryName = categoryName;
     }
 
     public String getCategoryName() {
-        return CategoryName;
+        return categoryName;
     }
 
     public void setCategoryName(String categoryName) {
-        CategoryName = categoryName;
+        categoryName = categoryName;
     }
 }

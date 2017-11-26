@@ -1,6 +1,6 @@
 package DAO;
 
-public class DAOCreditCardPayment extends DAOPayment {
+public class DAOCardPayment extends DAOPayment {
     private int paymentNumber;
     private int paymentAmount;
     private Type paymentType;
@@ -10,21 +10,21 @@ public class DAOCreditCardPayment extends DAOPayment {
     private int cardNumber;
     private int approvalNumber;
 
-    public DAOCreditCardPayment(int paymentNumber, int paymentAmount) {
+    public DAOCardPayment(int paymentNumber, int paymentAmount) {
         super(paymentNumber, paymentAmount, Type.CARD);
         this.cardCompany=null;
         this.cardNumber=-1;
         this.approvalNumber=-1;
     }
 
-    public DAOCreditCardPayment(int paymentNumber, int paymentAmount, Type type) {
+    public DAOCardPayment(int paymentNumber, int paymentAmount, Type type) {
         super(paymentNumber, paymentAmount, type);
         this.cardCompany=null;
         this.cardNumber=-1;
         this.approvalNumber=-1;
     }
 
-    public DAOCreditCardPayment(int paymentNumber, int paymentAmount, Type type, String cardCompany, int cardNumber, int approvalNumber) {
+    public DAOCardPayment(int paymentNumber, int paymentAmount, Type type, String cardCompany, int cardNumber, int approvalNumber) {
         super(paymentNumber, paymentAmount, type);
         this.cardCompany = cardCompany;
         this.cardNumber = cardNumber;
