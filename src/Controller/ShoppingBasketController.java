@@ -6,13 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +49,7 @@ public class ShoppingBasketController implements Initializable{
     @FXML private Button allDelBtn;
     @FXML private Button payBtn;
     @FXML private Button applyBtn;
+    @FXML private AnchorPane ap;
 
     @FXML
     private void itemManagementButtonAction(ActionEvent event) {
@@ -90,7 +91,11 @@ public class ShoppingBasketController implements Initializable{
     @FXML
     private void pwChgButtonAction(ActionEvent event) {
         System.out.println("pwChgBtn");
+        Stage ownerStage = (Stage) pwChgBtn.getScene().getWindow();
+        PasswordChgController passwordChgController = new PasswordChgController();
+        passwordChgController.showPwdChgDialog(ownerStage);
     }
+
 
     @FXML
     private void logoutButtonAction(ActionEvent event) {
