@@ -27,7 +27,7 @@ admin
     ```
 3. pos 데이터베이스 접속  
     ```
-    mysql -u root -p pos`
+    mysql -u root -p pos
     ```
 
 ## DB 계정
