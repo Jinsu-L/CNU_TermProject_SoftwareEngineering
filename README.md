@@ -4,9 +4,9 @@
 ## 개발 환경
 
 ````
-java : [1.8.0_151](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-UI : JavaFx
-DB : MySQL
+java : 1.8.0_151
+UI   : JavaFx
+DB   : MySQL
 ````
 
 ## Pos 로그인 비밀번호
