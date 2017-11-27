@@ -14,6 +14,21 @@ admin
 
 ````
 
+## DB 설치 가이드
+
+1. MySQL설치  
+    ```
+    sudo apt-get install mysql-server mysql-client
+    ```
+2. pos POS 데이터베이스 생성  
+    ```
+    mysqladmin -u root create pos -p
+    ```
+3. pos 데이터베이스 접속  
+    ```
+    mysql -u root -p pos`
+    ```
+
 ## DB 계정
 ````
 ID : root
