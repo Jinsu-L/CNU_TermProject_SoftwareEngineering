@@ -55,6 +55,7 @@ cmake-build-debug/
 
 # IntelliJ
 out/
+
 .idea
 *.iml
 
