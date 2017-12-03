@@ -2,6 +2,10 @@ package Controller;
 
 import javafx.fxml.Initializable;
 
+/**
+ * @author - 임진수
+ */
+
 import java.net.URL;
 import java.util.ResourceBundle;
 

@@ -13,6 +13,10 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * @author - 임진수
+ */
+
 public class PasswordChgController implements Initializable {
 
 
