@@ -58,6 +58,8 @@ public class ShoppingBasketController implements Initializable {
     @FXML
     private Button applyBtn;
 
+    private boolean managementToggle = false;
+
     @FXML
     private void itemManagementButtonAction(ActionEvent event) {
         Parent ItemManagement = null;
@@ -74,6 +76,22 @@ public class ShoppingBasketController implements Initializable {
     @FXML
     private void mangementButtonAction(ActionEvent event) {
         System.out.println("managementBtn");
+        managementToggle = !managementToggle;
+        if (managementToggle) {
+            mangementBtn.setText("닫기");
+            itemMangementBtn.setVisible(true);
+            couponBtn.setVisible(true);
+            salesStatusBtn.setVisible(true);
+            pwChgBtn.setVisible(true);
+            logoutBtn.setVisible(true);
+        } else {
+            mangementBtn.setText("관리");
+            itemMangementBtn.setVisible(false);
+            couponBtn.setVisible(false);
+            salesStatusBtn.setVisible(false);
+            pwChgBtn.setVisible(false);
+            logoutBtn.setVisible(false);
+        }
     }
 
     @FXML
