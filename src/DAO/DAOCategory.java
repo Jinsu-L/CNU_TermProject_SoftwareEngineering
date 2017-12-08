@@ -10,6 +10,16 @@ public class DAOCategory {
     public DAOCategory() {
     }
 
+    public DAOCategory(String categoryName) {
+        this.categoryID = getCategoryID(categoryName);
+        this.categoryName=categoryName;
+    }
+
+    public DAOCategory(int categoryID, String categoryName) {
+        this.categoryID = categoryID;
+        this.categoryName = categoryName;
+    }
+
     public int getCategoryID() {
         return categoryID;
     }
