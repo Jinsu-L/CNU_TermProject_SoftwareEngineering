@@ -129,4 +129,9 @@ ADD CONSTRAINT R_2 FOREIGN KEY (shopping_basket_number) REFERENCES shopping_bask
 
 ALTER TABLE shopping_history
 ADD CONSTRAINT R_20 FOREIGN KEY (item_name) REFERENCES item (item_name);
+INSERT INTO category VALUES(1,'set');
+INSERT INTO category VALUES(2,'single');
+INSERT INTO category VALUES(3,'drink');
+INSERT INTO category VALUES(4,'side');
+INSERT INTO category VALUES(5,'etc');
 ```
