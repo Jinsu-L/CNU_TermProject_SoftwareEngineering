@@ -1,4 +1,11 @@
 package DAO;
+enum CategoryType{
+    세트,
+    단품,
+    사이드,
+    음료수,
+    기타
+};
 
 public class DAOCategory {
     private String CategoryName;
