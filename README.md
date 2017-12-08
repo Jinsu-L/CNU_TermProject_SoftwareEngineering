@@ -84,7 +84,7 @@ CREATE TABLE payment
 (
    payment_number       INTEGER NOT NULL,
    payment_amount       INTEGER NULL,
-   payment_type         ENUM(cash,card,coupon) NULL,
+   payment_type         ENUM('cash','card','coupon') NULL,
    payment_date         DATE NULL,
    shopping_basket_number INTEGER NOT NULL
 );
