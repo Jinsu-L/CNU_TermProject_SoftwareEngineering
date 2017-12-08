@@ -146,8 +146,8 @@ public class ShoppingBasketController implements Initializable {
     private void payButtonAction(ActionEvent event) {
         System.out.println("payBtn");
 
-        PayProgressController payProgressController = new PayProgressController();
-        payProgressController.PayProgress((Stage) payBtn.getScene().getWindow());
+        PaymentController paymentCont = new PaymentController();
+        paymentCont.PayProgress((Stage) payBtn.getScene().getWindow(), getTotalPrice());
     }
 
     @FXML
@@ -170,4 +170,7 @@ public class ShoppingBasketController implements Initializable {
         applyBtn.setOnAction(this::applyButtonAction);
     }
 
+    public int getTotalPrice() {
+        return 25000;
+    }
 }

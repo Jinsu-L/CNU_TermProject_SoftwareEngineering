@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-
 <DialogPane prefHeight="320.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PayProgressController">
    <content>
       <GridPane prefHeight="120.0" prefWidth="280.0">
@@ -27,10 +26,10 @@
          <children>
             <Label text="결제금액" />
             <Label text="남은 금액" GridPane.rowIndex="2" />
-            <Label text="카드 번호 / 쿠폰 번호" GridPane.rowIndex="4" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="256.7294921875" GridPane.rowIndex="3" />
-            <TextField prefHeight="26.0" prefWidth="210.0" GridPane.rowIndex="1" />
-            <TextField GridPane.rowIndex="5" />
+            <Label fx:id="Label" text="카드 번호 / 쿠폰 번호" visible="false" GridPane.rowIndex="4" />
+            <Text fx:id="remind" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="256.7294921875" GridPane.rowIndex="3" />
+            <TextField fx:id="payPrice" prefHeight="26.0" prefWidth="210.0" GridPane.rowIndex="1" />
+            <TextField fx:id="input" visible="false" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </content>
