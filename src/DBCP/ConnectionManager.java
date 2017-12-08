@@ -2,7 +2,7 @@ package DBCP;
 
 import java.sql.*;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
 public class ConnectionManager {
 
@@ -32,13 +32,13 @@ public class ConnectionManager {
 
             ds.setPassword(passWord);
 
-            ds.setMaxTotal(10);
+            ds.setMaxActive(10);
 
             ds.setInitialSize(10);
 
             ds.setMinIdle(5);
 
-            ds.setMaxWaitMillis(5000);
+            ds.setMaxWait(5000);
 
             ds.setPoolPreparedStatements(true);
 

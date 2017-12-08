@@ -1,4 +1,5 @@
 import Controller.LoginController;
+import DAO.DAOItem;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +26,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        DAOItem test=new DAOItem();
+        test.setItemName("asd");
         Parent root = FXMLLoader.load(getClass().getResource("View/Main.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setTitle("POS");
