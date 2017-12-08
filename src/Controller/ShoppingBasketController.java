@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 
@@ -97,6 +96,10 @@ public class ShoppingBasketController implements Initializable {
     @FXML
     private void couponButtonAction(ActionEvent event) {
         System.out.println("couponBtn");
+
+        CouponController couponController = new CouponController();
+        /* Todo 쿠폰 발급 */
+        couponController.showCouponDialog((Stage) couponBtn.getScene().getWindow());
     }
 
     @FXML
@@ -142,6 +145,9 @@ public class ShoppingBasketController implements Initializable {
     @FXML
     private void payButtonAction(ActionEvent event) {
         System.out.println("payBtn");
+
+        PayProgressController payProgressController = new PayProgressController();
+        payProgressController.PayProgress((Stage) payBtn.getScene().getWindow());
     }
 
     @FXML

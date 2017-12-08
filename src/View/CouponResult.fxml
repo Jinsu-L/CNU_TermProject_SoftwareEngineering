@@ -23,8 +23,6 @@
          <children>
             <Label text="쿠폰번호" />
             <Label text="금액" GridPane.rowIndex="2" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="257.7294921875" GridPane.rowIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="258.7294921875" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </content>

@@ -17,6 +17,8 @@ import java.util.ResourceBundle;
  * @author - 임진수
  */
 
+/* Todo 아이템 관리 기능 추가 */
+
 public class ItemManagementController implements Initializable {
     @FXML private Button backBtn;
     @FXML private Button registerBtn;
