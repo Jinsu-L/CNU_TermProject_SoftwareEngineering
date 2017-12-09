@@ -1,9 +1,8 @@
 package DAO;
 
 import DBCP.ConnectionManager;
-
 import java.sql.*;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class DAOItem {
     private String itemName;
@@ -55,8 +54,8 @@ public class DAOItem {
     }
 
     //상품 내역 조회
-    public Vector<DAOItem> getItems() {
-        Vector<DAOItem> result = new Vector<>();
+    public ArrayList<DAOItem> getItems() {
+        ArrayList<DAOItem> result = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -95,8 +94,8 @@ public class DAOItem {
     }
 
     //해당 카테고리 상품 요청청
-    public Vector<DAOItem> getItems(String categoryName) {
-        Vector<DAOItem> result = new Vector<>();
+    public ArrayList<DAOItem> getItems(String categoryName) {
+        ArrayList<DAOItem> result = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
