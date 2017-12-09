@@ -2,7 +2,7 @@ package DAO;
 
 import DBCP.ConnectionManager;
 import java.sql.*;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class DAOCategory {
     private int categoryID;
@@ -88,8 +88,8 @@ public class DAOCategory {
     }
 
     //카테고리 내역 조회
-    public Vector<DAOCategory> getCategories(){
-        Vector<DAOCategory> result = new Vector<>();
+    public ArrayList<DAOCategory> getCategories(){
+        ArrayList<DAOCategory> result = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
