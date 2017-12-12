@@ -135,13 +135,13 @@ INSERT INTO category VALUES(3,'drink');
 INSERT INTO category VALUES(4,'side');
 INSERT INTO category VALUES(5,'etc');
 
-INSERT INTO item VALUES("동하 버거 세트", 9500, 1);
-INSERT INTO item VALUES("동하 버거 세트", 6500, 1);
-INSERT INTO item VALUES("동하 버거", 5500, 2);
-INSERT INTO item VALUES("근우 버거", 3500, 2);
-INSERT INTO item VALUES("소공 쉐이크", 2000, 3);
-INSERT INTO item VALUES("콜라", 1000, 3);
-INSERT INTO item VALUES("감자 튀김", 2300, 4);
-INSERT INTO item VALUES("애플 파이", 3000, 4);
-INSERT INTO item VALUES("성적", 9999, 5);
+INSERT INTO item VALUES('동하 버거 세트', 9500, 1);
+INSERT INTO item VALUES('동하 버거 세트', 6500, 1);
+INSERT INTO item VALUES('동하 버거', 5500, 2);
+INSERT INTO item VALUES('근우 버거', 3500, 2);
+INSERT INTO item VALUES('소공 쉐이크', 2000, 3);
+INSERT INTO item VALUES('콜라', 1000, 3);
+INSERT INTO item VALUES('감자 튀김', 2300, 4);
+INSERT INTO item VALUES('애플 파이', 3000, 4);
+INSERT INTO item VALUES('성적', 9999, 5);
 ```
