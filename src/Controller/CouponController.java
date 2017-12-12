@@ -108,7 +108,7 @@ public class CouponController implements Initializable {
             dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
             GridPane grid = (GridPane) dialog.getDialogPane().getContent();
             Text couponNumberField = new Text();
-            couponNumberField.setText(getCouponNumber());
+            couponNumberField.setText(getCouponNumber(selectedCoupon));
             Text couponPriceField = new Text();
             couponPriceField.setText(String.valueOf(selectedCoupon));
             grid.add(couponNumberField, 0, 1);
@@ -122,7 +122,7 @@ public class CouponController implements Initializable {
     }
 
     /* Todo coupon 발급 기능 */
-    private String getCouponNumber() {
+    private String getCouponNumber(int inputPrice) {
         return "coupon-12345";
     }
 }

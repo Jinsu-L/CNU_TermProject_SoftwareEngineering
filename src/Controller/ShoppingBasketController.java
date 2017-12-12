@@ -1,17 +1,24 @@
 package Controller;
 
+import DAO.DAOItem;
+import DAO.DAOShoppingHistory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import sun.plugin.javascript.navig.Anchor;
 
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -56,6 +63,9 @@ public class ShoppingBasketController implements Initializable {
     private Button payBtn;
     @FXML
     private Button applyBtn;
+    @FXML
+    private Tab TabSingle;
+
 
     private boolean managementToggle = false;
 
@@ -168,9 +178,47 @@ public class ShoppingBasketController implements Initializable {
         allDelBtn.setOnAction(this::allDelButtonAction);
         payBtn.setOnAction(this::payButtonAction);
         applyBtn.setOnAction(this::applyButtonAction);
+        System.out.println("hello!!");
+        refreshTab();
     }
 
     public int getTotalPrice() {
         return 25000;
+    }
+
+    private int startX = 10;
+    private int startY = 20;
+    private int buttonSize = 90;
+    private int gap = 15;
+
+    public void refreshTab() {
+        AnchorPane content = (AnchorPane) TabSingle.getContent();
+        ArrayList singleList = getItemListByCategory("single");
+        for (int i = 0; i < singleList.size(); i++) {
+            DAOItem temp = (DAOItem) singleList.get(i);
+            int indexX = i % 4;
+            int indexY = i / 4;
+            Button test = new Button();
+            test.setPrefWidth(buttonSize);
+            test.setPrefHeight(buttonSize);
+            test.setLayoutX(startX + indexX * gap + (buttonSize * indexX));
+            test.setLayoutY(startY + indexY * gap + (buttonSize * indexY));
+            test.setText(temp.getItemName() + "\n" + " (" + temp.getItemPrice() + ")");
+            test.setOnAction(this::menuItemAction);
+            test.setId(temp.getItemName());
+            content.getChildren().add(test);
+        }
+    }
+
+    /* Todo 메뉴를 클릭할 시 동작하는 이벤트 리스너 getID에 상품명 넣어둠 */
+    @FXML
+    private void menuItemAction(ActionEvent event) {
+        Node node = (Node) event.getSource();
+        System.out.println(node.getId());
+    }
+
+
+    public ArrayList<DAOItem> getItemListByCategory(String categoryName) {
+        return new DAOItem().getItems(categoryName);
     }
 }

@@ -79,6 +79,8 @@ public class PaymentController implements Initializable {
         if (paidPrice == totalPrice) {
             /* Todo DB에 결제 내역 반영  */
             System.out.println("결제 성공!!");
+        }else{
+            /* Todo 결제 취소 - 결제 번호를 돌려 놓음 */
         }
     }
 
