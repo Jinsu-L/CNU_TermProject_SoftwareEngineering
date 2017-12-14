@@ -10,11 +10,11 @@
 
 <AnchorPane fx:id="ap" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ShoppingBasketController">
     <children>
-        <TableView layoutX="34.0" layoutY="35.0" prefHeight="367.0" prefWidth="691.0">
+        <TableView fx:id="basketList" layoutX="34.0" layoutY="35.0" prefHeight="367.0" prefWidth="691.0">
             <columns>
-                <TableColumn prefWidth="491.0" text="상품명" />
-                <TableColumn prefWidth="97.0" text="수량" />
-                <TableColumn prefWidth="102.0" text="금액" />
+                <TableColumn fx:id="itemName" prefWidth="491.0" text="상품명" />
+                <TableColumn fx:id="amount" prefWidth="97.0" text="수량" />
+                <TableColumn fx:id="price" prefWidth="102.0" text="금액" />
             </columns>
         </TableView>
         <TabPane layoutX="743.0" layoutY="34.0" prefHeight="550.0" prefWidth="423.0" tabClosingPolicy="UNAVAILABLE">

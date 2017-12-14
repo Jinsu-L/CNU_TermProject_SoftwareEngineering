@@ -2,6 +2,12 @@ package Controller;
 
 import DAO.DAOItem;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,6 +79,21 @@ public class ShoppingBasketController implements Initializable {
     private Tab TabDrink;
     @FXML
     private Tab TabETC;
+
+    @FXML
+    private TableView<TableRowDataModel> basketList;
+    @FXML
+    private TableColumn<TableRowDataModel, String> itemName;
+    @FXML
+    private TableColumn<TableRowDataModel, Integer> amount;
+    @FXML
+    private TableColumn<TableRowDataModel, Integer> price;
+
+
+    ObservableList<TableRowDataModel> tempList = FXCollections.observableArrayList(
+            new TableRowDataModel(new SimpleStringProperty("근우 버거"), new SimpleIntegerProperty(1), new SimpleIntegerProperty(2500)),
+            new TableRowDataModel(new SimpleStringProperty("종훈 버거"), new SimpleIntegerProperty(1), new SimpleIntegerProperty(5500))
+    );
 
 
     private boolean managementToggle = false;
@@ -187,6 +208,7 @@ public class ShoppingBasketController implements Initializable {
         applyBtn.setOnAction(this::applyButtonAction);
         System.out.println("hello!!");
         refreshTab();
+        refreshBasketList();
     }
 
     public int getTotalPrice() {
@@ -239,6 +261,34 @@ public class ShoppingBasketController implements Initializable {
         return new DAOItem().getItems(categoryName);
     }
 
-    public void insertBasketList() {
+    public void refreshBasketList() {
+        itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
+        amount.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
+        price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+        basketList.setItems(tempList);
+    }
+
+    public class TableRowDataModel {
+        private StringProperty itemName;
+        private IntegerProperty amount;
+        private IntegerProperty price;
+
+        public TableRowDataModel(StringProperty name, IntegerProperty amount, IntegerProperty price) {
+            this.itemName = name;
+            this.amount = amount;
+            this.price = price;
+        }
+
+        public StringProperty itemNameProperty() {
+            return itemName;
+        }
+
+        public IntegerProperty amountProperty() {
+            return amount;
+        }
+
+        public IntegerProperty priceProperty() {
+            return price;
+        }
     }
 }
