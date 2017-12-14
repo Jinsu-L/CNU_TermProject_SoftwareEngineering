@@ -6,8 +6,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -81,7 +79,8 @@ public class ShoppingBasketController implements Initializable {
     private Tab TabDrink;
     @FXML
     private Tab TabETC;
-
+    @FXML
+    private TextField amountTF;
     @FXML
     private TableView<TableRowDataModel> basketList;
     @FXML
@@ -177,9 +176,9 @@ public class ShoppingBasketController implements Initializable {
     @FXML
     private void slcDelButtonAction(ActionEvent event) {
         System.out.println("slcDelBtn");
-        if (!tempList.isEmpty())
-            tempList.remove(nowSelectItemIndex);
-        nowSelectItemIndex = 0;
+        int index = basketList.getSelectionModel().getSelectedIndex();
+        if (!tempList.isEmpty() && index >= 0)
+            tempList.remove(index);
     }
 
     @FXML
@@ -200,6 +199,14 @@ public class ShoppingBasketController implements Initializable {
     @FXML
     private void applyButtonAction(ActionEvent event) {
         System.out.println("applyBtn");
+        int index = basketList.getSelectionModel().getSelectedIndex();
+        String temp = amountTF.getText();
+        if (!"".equals(temp) && temp.matches("^[0-9]*$") && index >= 0) {
+            TableRowDataModel modifyModel = basketList.getItems().get(index);
+            IntegerProperty modify = new SimpleIntegerProperty(Integer.parseInt(temp));
+            modifyModel.amount = modify;
+            basketList.getItems().set(index, modifyModel);
+        }
     }
 
 
@@ -270,25 +277,11 @@ public class ShoppingBasketController implements Initializable {
         return new DAOItem().getItems(categoryName);
     }
 
-    private int nowSelectItemIndex = 0;
-
     public void refreshBasketList() {
         itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
         amount.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
         price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         basketList.setItems(tempList);
-        basketList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TableRowDataModel>() {
-            @Override
-            public void changed(ObservableValue<? extends TableRowDataModel> observable, TableRowDataModel oldValue, TableRowDataModel newValue) {
-                TableRowDataModel model = basketList.getSelectionModel().getSelectedItem();
-                System.out.println("Name : " + model.itemNameProperty());
-                System.out.println("Amount : " + model.amountProperty());
-                System.out.println("Price : " + model.priceProperty());
-                System.out.println("선택된 Item의 Index" + basketList.getSelectionModel().getSelectedIndex());
-                nowSelectItemIndex = basketList.getSelectionModel().getSelectedIndex();
-                System.out.println(nowSelectItemIndex);
-            }
-        });
     }
 
     public class TableRowDataModel {
