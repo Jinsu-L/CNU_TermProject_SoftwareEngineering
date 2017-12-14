@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="ap" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ShoppingBasketController">
+<AnchorPane fx:id="ap" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ShoppingBasketController">
     <children>
         <TableView layoutX="34.0" layoutY="35.0" prefHeight="367.0" prefWidth="691.0">
             <columns>
@@ -21,15 +21,7 @@
             <tabs>
                 <Tab fx:id="TabSet" text="   세트   ">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="499.0" prefWidth="423.0">
-                            <children>
-                                <Button layoutX="10.0" layoutY="20.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" text="동하버거세트" />
-                                <Button layoutX="115.0" layoutY="20.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" text="동의버거세트" />
-                        <Button layoutX="220.0" layoutY="20.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" text="동의버거세트" />
-                        <Button layoutX="325.0" layoutY="20.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" text="동의버거세트" />
-                        <Button layoutX="10.0" layoutY="125.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="90.0" text="동하버거세트" />
-                            </children>
-                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="499.0" prefWidth="423.0" />
                     </content>
                 </Tab>
                 <Tab fx:id="TabSingle" text="    단품    ">
@@ -64,6 +56,6 @@
         <Button fx:id="logoutBtn" layoutX="255.0" layoutY="510.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="로그아웃" visible="false" />
         <Button fx:id="slcDelBtn" layoutX="471.0" layoutY="406.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="119.0" text="선택 삭제" />
         <Button fx:id="allDelBtn" layoutX="606.0" layoutY="405.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="119.0" text="전체 삭제" />
-        <Button fx:id="payBtn" layoutX="471.0" layoutY="481.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="256.0" text="결제" />
+        <Button fx:id="payBtn" layoutX="471.0" layoutY="481.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="256.0" text="결제" textAlignment="CENTER" />
     </children>
 </AnchorPane>

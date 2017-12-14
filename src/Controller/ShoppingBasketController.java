@@ -1,24 +1,24 @@
 package Controller;
 
 import DAO.DAOItem;
-import DAO.DAOShoppingHistory;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import sun.plugin.javascript.navig.Anchor;
-
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
+
 import java.util.ResourceBundle;
 
 /**
@@ -64,7 +64,15 @@ public class ShoppingBasketController implements Initializable {
     @FXML
     private Button applyBtn;
     @FXML
+    private Tab TabSet;
+    @FXML
     private Tab TabSingle;
+    @FXML
+    private Tab TabSide;
+    @FXML
+    private Tab TabDrink;
+    @FXML
+    private Tab TabETC;
 
 
     private boolean managementToggle = false;
@@ -106,7 +114,6 @@ public class ShoppingBasketController implements Initializable {
     @FXML
     private void couponButtonAction(ActionEvent event) {
         System.out.println("couponBtn");
-
         CouponController couponController = new CouponController();
         /* Todo 쿠폰 발급 */
         couponController.showCouponDialog((Stage) couponBtn.getScene().getWindow());
@@ -192,21 +199,31 @@ public class ShoppingBasketController implements Initializable {
     private int gap = 15;
 
     public void refreshTab() {
-        AnchorPane content = (AnchorPane) TabSingle.getContent();
-        ArrayList singleList = getItemListByCategory("single");
+        settingTab(TabSet, "set");
+        settingTab(TabSingle, "single");
+        settingTab(TabDrink, "drink");
+        settingTab(TabSide, "side");
+        settingTab(TabETC, "etc");
+    }
+
+    public void settingTab(Tab tab, String CategoryName) {
+        AnchorPane content = (AnchorPane) tab.getContent();
+        ArrayList singleList = getItemListByCategory(CategoryName);
         for (int i = 0; i < singleList.size(); i++) {
             DAOItem temp = (DAOItem) singleList.get(i);
             int indexX = i % 4;
             int indexY = i / 4;
-            Button test = new Button();
-            test.setPrefWidth(buttonSize);
-            test.setPrefHeight(buttonSize);
-            test.setLayoutX(startX + indexX * gap + (buttonSize * indexX));
-            test.setLayoutY(startY + indexY * gap + (buttonSize * indexY));
-            test.setText(temp.getItemName() + "\n" + " (" + temp.getItemPrice() + ")");
-            test.setOnAction(this::menuItemAction);
-            test.setId(temp.getItemName());
-            content.getChildren().add(test);
+            Button button = new Button();
+            button.setPrefWidth(buttonSize);
+            button.setPrefHeight(buttonSize);
+            button.setLayoutX(startX + indexX * gap + (buttonSize * indexX));
+            button.setLayoutY(startY + indexY * gap + (buttonSize * indexY));
+            button.setText(temp.getItemName() + "\n" + "(" + temp.getItemPrice() + ")");
+            button.setTextAlignment(TextAlignment.CENTER);
+            button.setOnAction(this::menuItemAction);
+            button.setWrapText(true);
+            button.setId(temp.getItemName());
+            content.getChildren().add(button);
         }
     }
 
@@ -220,5 +237,8 @@ public class ShoppingBasketController implements Initializable {
 
     public ArrayList<DAOItem> getItemListByCategory(String categoryName) {
         return new DAOItem().getItems(categoryName);
+    }
+
+    public void insertBasketList() {
     }
 }
