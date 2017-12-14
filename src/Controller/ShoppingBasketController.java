@@ -91,12 +91,7 @@ public class ShoppingBasketController implements Initializable {
     private TableColumn<TableRowDataModel, Integer> price;
 
 
-    ObservableList<TableRowDataModel> tempList = FXCollections.observableArrayList(
-            new TableRowDataModel(new SimpleStringProperty("근우 버거"), new SimpleIntegerProperty(1), new SimpleIntegerProperty(5500)),
-            new TableRowDataModel(new SimpleStringProperty("종훈 버거"), new SimpleIntegerProperty(1), new SimpleIntegerProperty(5500)),
-            new TableRowDataModel(new SimpleStringProperty("진수 버거"), new SimpleIntegerProperty(1), new SimpleIntegerProperty(5500)),
-            new TableRowDataModel(new SimpleStringProperty("동하 버거"), new SimpleIntegerProperty(1), new SimpleIntegerProperty(5500))
-    );
+    ObservableList<TableRowDataModel> tempList = FXCollections.observableArrayList();
 
 
     private boolean managementToggle = false;
@@ -206,6 +201,7 @@ public class ShoppingBasketController implements Initializable {
             IntegerProperty modify = new SimpleIntegerProperty(Integer.parseInt(temp));
             modifyModel.amount = modify;
             basketList.getItems().set(index, modifyModel);
+            amountTF.clear();
         }
     }
 
@@ -270,6 +266,8 @@ public class ShoppingBasketController implements Initializable {
     private void menuItemAction(ActionEvent event) {
         Node node = (Node) event.getSource();
         System.out.println(node.getId());
+        DAOItem insert = new DAOItem().getItemDetail(node.getId());
+        basketList.getItems().add(new TableRowDataModel(new SimpleStringProperty(insert.getItemName()), new SimpleIntegerProperty(1), new SimpleIntegerProperty(insert.getItemPrice())));
     }
 
 
