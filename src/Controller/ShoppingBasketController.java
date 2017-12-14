@@ -6,6 +6,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -266,6 +268,16 @@ public class ShoppingBasketController implements Initializable {
         amount.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
         price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         basketList.setItems(tempList);
+        basketList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TableRowDataModel>() {
+            @Override
+            public void changed(ObservableValue<? extends TableRowDataModel> observable, TableRowDataModel oldValue, TableRowDataModel newValue) {
+                TableRowDataModel model = basketList.getSelectionModel().getSelectedItem();
+                System.out.println("Name : " +  model.itemNameProperty());
+                System.out.println("Amount : " +  model.amountProperty());
+                System.out.println("Price : " +  model.priceProperty());
+                System.out.println("선택된 Item의 Index" +  basketList.getSelectionModel().getSelectedIndex());
+            }
+        });
     }
 
     public class TableRowDataModel {
