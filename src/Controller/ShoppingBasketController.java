@@ -93,8 +93,10 @@ public class ShoppingBasketController implements Initializable {
 
 
     ObservableList<TableRowDataModel> tempList = FXCollections.observableArrayList(
-            new TableRowDataModel(new SimpleStringProperty("근우 버거"), new SimpleIntegerProperty(1), new SimpleIntegerProperty(2500)),
-            new TableRowDataModel(new SimpleStringProperty("종훈 버거"), new SimpleIntegerProperty(1), new SimpleIntegerProperty(5500))
+            new TableRowDataModel(new SimpleStringProperty("근우 버거"), new SimpleIntegerProperty(1), new SimpleIntegerProperty(5500)),
+            new TableRowDataModel(new SimpleStringProperty("종훈 버거"), new SimpleIntegerProperty(1), new SimpleIntegerProperty(5500)),
+            new TableRowDataModel(new SimpleStringProperty("진수 버거"), new SimpleIntegerProperty(1), new SimpleIntegerProperty(5500)),
+            new TableRowDataModel(new SimpleStringProperty("동하 버거"), new SimpleIntegerProperty(1), new SimpleIntegerProperty(5500))
     );
 
 
@@ -175,6 +177,9 @@ public class ShoppingBasketController implements Initializable {
     @FXML
     private void slcDelButtonAction(ActionEvent event) {
         System.out.println("slcDelBtn");
+        if (!tempList.isEmpty())
+            tempList.remove(nowSelectItemIndex);
+        nowSelectItemIndex = 0;
     }
 
     @FXML
@@ -265,6 +270,8 @@ public class ShoppingBasketController implements Initializable {
         return new DAOItem().getItems(categoryName);
     }
 
+    private int nowSelectItemIndex = 0;
+
     public void refreshBasketList() {
         itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
         amount.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
@@ -274,10 +281,12 @@ public class ShoppingBasketController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends TableRowDataModel> observable, TableRowDataModel oldValue, TableRowDataModel newValue) {
                 TableRowDataModel model = basketList.getSelectionModel().getSelectedItem();
-                System.out.println("Name : " +  model.itemNameProperty());
-                System.out.println("Amount : " +  model.amountProperty());
-                System.out.println("Price : " +  model.priceProperty());
-                System.out.println("선택된 Item의 Index" +  basketList.getSelectionModel().getSelectedIndex());
+                System.out.println("Name : " + model.itemNameProperty());
+                System.out.println("Amount : " + model.amountProperty());
+                System.out.println("Price : " + model.priceProperty());
+                System.out.println("선택된 Item의 Index" + basketList.getSelectionModel().getSelectedIndex());
+                nowSelectItemIndex = basketList.getSelectionModel().getSelectedIndex();
+                System.out.println(nowSelectItemIndex);
             }
         });
     }
