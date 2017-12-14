@@ -180,6 +180,8 @@ public class ShoppingBasketController implements Initializable {
     @FXML
     private void allDelButtonAction(ActionEvent event) {
         System.out.println("allDelBtn");
+        tempList.clear();
+        refreshBasketList();
     }
 
     @FXML
