@@ -295,6 +295,15 @@ public class ShoppingBasketController implements Initializable {
         return tempList;
     }
 
+    public void alert(String title,String body){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(body);
+
+        alert.showAndWait();
+    }
+
     public class TableRowDataModel {
         private StringProperty itemName;
         private IntegerProperty amount;
