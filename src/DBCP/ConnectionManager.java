@@ -6,7 +6,7 @@ import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
 public class ConnectionManager {
 
-    private BasicDataSource ds = null;
+    private static BasicDataSource ds = null;
 
 // DBCP를 생성한다.
 

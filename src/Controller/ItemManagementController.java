@@ -5,6 +5,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,9 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,6 +38,20 @@ public class ItemManagementController implements Initializable {
     private Button modifyBtn;
     @FXML
     private Button deleteBtn;
+    @FXML
+    private ChoiceBox ChoiceCategory;
+    @FXML
+    private TextField ItemNameTF;
+    @FXML
+    private TextField PriceBox;
+    @FXML
+    private TableView<TableRowDataModel> itemListView;
+    @FXML
+    private TableColumn<TableRowDataModel, String> itemName;
+    @FXML
+    private TableColumn<TableRowDataModel, String> category;
+    @FXML
+    private TableColumn<TableRowDataModel, Integer> price;
 
     @FXML
     private void backButtonAction(ActionEvent event) {
@@ -73,23 +87,44 @@ public class ItemManagementController implements Initializable {
         registerBtn.setOnAction(this::registerButtonAction);
         modifyBtn.setOnAction(this::modifyButtonAction);
         deleteBtn.setOnAction(this::deleteButtonAction);
+        itemListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TableRowDataModel>() {
+            @Override
+            public void changed(ObservableValue<? extends TableRowDataModel> observable, TableRowDataModel oldValue, TableRowDataModel newValue) {
+                TableRowDataModel model = itemListView.getSelectionModel().getSelectedItem();
+                System.out.println(model.itemName);
+                System.out.println(model.price);
+                System.out.println(model.category);
+                ItemNameTF.setText(String.valueOf(model.itemName.getValue()));
+                PriceBox.setText(String.valueOf(model.price.getValue()));
+                ChoiceCategory.getSelectionModel().select(categoryList.indexOf(model.category.getValue()));
+            }
+        });
+        loadCategoryList();
         loadItemList();
     }
 
+    ObservableList<String> categoryList = FXCollections.observableArrayList();
     ObservableList<TableRowDataModel> itemList = FXCollections.observableArrayList();
-    @FXML
-    private TableView<TableRowDataModel> itemListView;
-    @FXML
-    private TableColumn<TableRowDataModel, String> itemName;
-    @FXML
-    private TableColumn<TableRowDataModel, String> category;
-    @FXML
-    private TableColumn<TableRowDataModel, Integer> price;
+
+    public void loadCategoryList() {
+        /* Todo 카테고리 DB에서 읽어 오도록 수정 해야함 버그 있음 */
+//        ArrayList<DAOCategory> categoryArrayList = new DAOCategory().getCategories();
+//        for (DAOCategory category : categoryArrayList) {
+//            categoryList.add(category.getCategoryName());
+//        }
+        categoryList.add("set");
+        categoryList.add("single");
+        categoryList.add("drink");
+        categoryList.add("side");
+        categoryList.add("etc");
+
+        ChoiceCategory.setItems(categoryList);
+    }
 
     public void loadItemList() {
         ArrayList<DAOItem> itemArrayList = new DAOItem().getItems();
         for (DAOItem item : itemArrayList) {
-            itemList.add(new TableRowDataModel(new SimpleStringProperty(item.getItemName()),new SimpleStringProperty(item.getDaoCategory().getCategoryName()),new SimpleIntegerProperty(item.getItemPrice())));
+            itemList.add(new TableRowDataModel(new SimpleStringProperty(item.getItemName()), new SimpleStringProperty(item.getDaoCategory().getCategoryName()), new SimpleIntegerProperty(item.getItemPrice())));
         }
 
         itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
