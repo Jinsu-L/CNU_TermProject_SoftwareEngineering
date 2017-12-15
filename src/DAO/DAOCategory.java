@@ -16,8 +16,8 @@ public class DAOCategory {
         this.categoryName=categoryName;
     }
 
-    public DAOCategory(int categoryID, String categoryName) {
-        this.categoryNumber = categoryID;
+    public DAOCategory(int categoryNumber, String categoryName) {
+        this.categoryNumber = categoryNumber;
         this.categoryName = categoryName;
     }
 
@@ -93,7 +93,7 @@ public class DAOCategory {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM item";
+        String query = "SELECT * FROM category";
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();

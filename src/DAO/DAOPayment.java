@@ -87,6 +87,7 @@ public class DAOPayment {
     }
 
     //매출 현황 조회
+    //Todo 현재는 payment 리스트 반환인데 시퀀스에는 일자별 금액반환 -> ArrayList<Integer>로 하고 금액 계산해서 넘겨야할듯
     public static ArrayList<DAOPayment> selectPayment(String start,String end){
         ArrayList<DAOPayment> result=new ArrayList<>();
         Connection conn = null;

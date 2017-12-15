@@ -39,8 +39,8 @@ public class DAOEnvironment {
         return password;
     }
 
-    public static boolean setPassword(String password){
-        if(password.length()>10){
+    public static boolean setPassword(String password,String newPassword, String newPasswordCheck){
+        if(!password.equals(getPassword()) || newPassword.length()>10 || !newPassword.equals(newPasswordCheck)){
             return false;
         }
         Connection conn = null;

@@ -15,7 +15,12 @@ public class DAOItem {
         this.daoCategory = new DAOCategory();
     }
 
+    public DAOItem(int itemNumber){
+        this.itemNumber=itemNumber;
+        this.itemName=getItemName(itemNumber);
+    }
     public DAOItem(String itemName) {
+        this.itemNumber=getItemNumber(itemName);
         this.itemName = itemName;
     }
 
@@ -47,7 +52,7 @@ public class DAOItem {
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             rs.next();
-            result=rs.getInt("item_name");
+            result=rs.getInt("item_number");
             rs.close();
             pstmt.close();
         } catch (Exception e) {
@@ -66,6 +71,30 @@ public class DAOItem {
 
     public String getItemName() {
         return itemName;
+    }
+    public String getItemName(int itemNumber){
+        String result="";
+        Connection conn = null;
+        PreparedStatement pstmt=null;
+        ResultSet rs =null;
+        String query = String.format("SELECT * FROM item WHERE item_number=%d",itemNumber);
+        try {
+            ConnectionManager cm = new ConnectionManager();
+            conn = cm.getConnection();
+            pstmt = conn.prepareStatement(query);
+            rs = pstmt.executeQuery();
+            rs.next();
+            result=rs.getString("item_name");
+            rs.close();
+            pstmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if(rs != null) try { rs.close(); } catch(Exception e) {}
+            if(pstmt != null) try { pstmt.close(); } catch(Exception e) {}
+            if(conn != null) try { conn.close(); } catch(Exception e) {}
+        }
+        return result;
     }
 
     public void setItemName(String itemName) {
@@ -103,8 +132,8 @@ public class DAOItem {
             while (rs.next()) {
                 String rsItemName = rs.getString("item_name");
                 int rsItemPrice = rs.getInt("item_price");
-                int rsCategoryID = rs.getInt("categoryID");
-                DAOCategory rsDAOCategory = new DAOCategory(rsCategoryID, daoCategory.getCategoryName(rsCategoryID));
+                int rsCategoryNumber = rs.getInt("category_number");
+                DAOCategory rsDAOCategory = new DAOCategory(rsCategoryNumber, daoCategory.getCategoryName(rsCategoryNumber));
                 result.add(new DAOItem(rsItemName, rsItemPrice, rsDAOCategory));
             }
             rs.close();
@@ -196,12 +225,12 @@ public class DAOItem {
     }
 
     //상품 정보 요청
-    public DAOItem getItemDetail(String itemName) {
-        DAOItem result = new DAOItem(itemName);
+    public DAOItem getItemDetail(int itemNumber) {
+        DAOItem result = new DAOItem(itemNumber);
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String query = String.format("SELECT * FROM item WHERE item_name='%s'", itemName);
+        String query = String.format("SELECT * FROM item WHERE item_number=%d", itemNumber);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -209,8 +238,8 @@ public class DAOItem {
             rs = pstmt.executeQuery();
             rs.next();
             result.setItemPrice(rs.getInt("item_price"));
-            int rsCategoryID = rs.getInt("categoryID");
-            result.setDaoCategory(new DAOCategory(rsCategoryID, daoCategory.getCategoryName(rsCategoryID)));
+            int rsCategoryNumber = rs.getInt("category_number");
+            result.setDaoCategory(new DAOCategory(rsCategoryNumber, daoCategory.getCategoryName(rsCategoryNumber)));
             rs.close();
             pstmt.close();
         } catch (Exception e) {
@@ -264,7 +293,7 @@ public class DAOItem {
         Connection conn = null;
         PreparedStatement pstmt = null;
         int newCategoryID = daoCategory.getCategoryNumber(newCategoryName);
-        String query=String.format("UPDATE FROM item SET item_name='%s', item_price=%d, categoryId=%d WHERE item_name='%s'",newItemName,newItemPrice,newCategoryID,itemName);
+        String query=String.format("UPDATE FROM item SET item_name='%s', item_price=%d, category_number=%d WHERE item_name='%s'",newItemName,newItemPrice,newCategoryID,itemName);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();

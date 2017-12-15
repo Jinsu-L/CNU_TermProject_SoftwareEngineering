@@ -13,14 +13,14 @@ public class DAOShoppingHistory {
     private static int shoppingHistoryCount=0;
 
     public DAOShoppingHistory() {
-        this.shoppingHistoryNumber=this.getHistorySize();
+        this.shoppingHistoryNumber=this.getHistorySize()+1;
         this.itemQuantity=0;
         this.daoShoppingBasketNumber=DAOShoppingBasket.getBasketSize();
         this.daoItem=new DAOItem();
     }
 
     public DAOShoppingHistory(int daoShoppingBasketNumber){
-        this.shoppingHistoryNumber=this.getHistorySize();
+        this.shoppingHistoryNumber=this.getHistorySize()+1;
         this.itemQuantity=0;
         this.daoShoppingBasketNumber=daoShoppingBasketNumber;
         this.daoItem=new DAOItem();
@@ -103,7 +103,7 @@ public class DAOShoppingHistory {
     public ArrayList<DAOShoppingHistory> deleteHistory(int shoppingBasketNumber,String itemName) {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query = String.format("DELETE FROM shopping_history WHERE shopping_basket_number = %d AND item_name = '%s'",shoppingBasketNumber,itemName);
+        String query = String.format("DELETE FROM shopping_history WHERE shopping_basket_number = %d AND item_number = %d",shoppingBasketNumber,daoItem.getItemNumber(itemName));
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -129,7 +129,7 @@ public class DAOShoppingHistory {
     public ArrayList<DAOShoppingHistory> updateHistory(int shoppingBasketNumber, String itemName, int itemQuantity){
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query = String.format("UPDATE FROM shopping_history SET item_quantity=%d WHERE shopping_basket_number=%d AND item_name='%s'",itemQuantity,shoppingBasketNumber,itemName);
+        String query = String.format("UPDATE shopping_history SET item_quantity=%d WHERE shopping_basket_number=%d AND item_number=%d",itemQuantity,shoppingBasketNumber,daoItem.getItemNumber(itemName));
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -156,7 +156,7 @@ public class DAOShoppingHistory {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String query = String.format("SELECT * FROM shopping_history WHERE shopping_basket_number =%d AND  item_name='%s'",shoppingBasketNumber,itemName);
+        String query = String.format("SELECT * FROM shopping_history WHERE shopping_basket_number =%d AND  item_number=%d",shoppingBasketNumber,daoItem.getItemNumber(itemName));
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -166,7 +166,7 @@ public class DAOShoppingHistory {
                 //해당 바구니에 상품 존재시 수량 +1
                 updateHistory(shoppingBasketNumber,itemName,rs.getInt("item_quantity")+1);
             }else{
-                query=String.format("INSERT INTO shopping_history VALUES (%d, 1, %d,'%s')",getShoppingHistoryNumber(),shoppingBasketNumber,itemName);
+                query=String.format("INSERT INTO shopping_history (item_quantity, shopping_basket_number, item_number) VALUES (1, %d, %d)",shoppingBasketNumber,daoItem.getItemNumber(itemName));
                 pstmt=conn.prepareStatement(query);
                 pstmt.executeUpdate();
             }
@@ -207,7 +207,7 @@ public class DAOShoppingHistory {
                 int rsShoppingHistoryNumber=rs.getInt("shopping_history_number");
                 int rsItemQuantity=rs.getInt("item_quantity");
                 int rsShoppingBasketNumber=rs.getInt("shopping_basket_number");
-                DAOItem rsDaoItem=daoItem.getItemDetail(rs.getString("item_name"));
+                DAOItem rsDaoItem=daoItem.getItemDetail(rs.getInt("item_number"));
                 result.add(new DAOShoppingHistory(rsShoppingHistoryNumber,rsItemQuantity,rsShoppingBasketNumber,rsDaoItem));
             }
             rs.close();

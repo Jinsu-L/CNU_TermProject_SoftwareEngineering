@@ -11,7 +11,7 @@ public class DAOShoppingBasket {
     private DAOShoppingHistory daoShoppingHistory;
 
     public DAOShoppingBasket() {
-        this.shoppingBasketNumber=getBasketSize();
+        this.shoppingBasketNumber=getBasketSize()+1;
         daoShoppingHistories = new ArrayList<>();
         daoShoppingHistory = new DAOShoppingHistory(getShoppingBasketNumber());
     }
@@ -98,5 +98,53 @@ public class DAOShoppingBasket {
             }
         }
         return size;
+    }
+
+    public static void insertBasket(){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String query=String.format("INSERT INTO shopping_basket (total_amount) VALUES(0)");
+        try {
+            ConnectionManager cm = new ConnectionManager();
+            conn = cm.getConnection();
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (Exception e) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    public static void deleteBasket(){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String query=String.format("DELETE FROM shopping_basket WHERE shopping_basket_number = %d",getBasketSize());
+        try {
+            ConnectionManager cm = new ConnectionManager();
+            conn = cm.getConnection();
+            pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (Exception e) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (Exception e) {
+            }
+        }
     }
 }
