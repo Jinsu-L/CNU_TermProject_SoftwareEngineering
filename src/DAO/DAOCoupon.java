@@ -3,6 +3,8 @@ package DAO;
 import DBCP.ConnectionManager;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DAOCoupon {
 
@@ -69,7 +71,8 @@ public class DAOCoupon {
 
     public String createCoupon(int couponAmount){
         //쿠폰 생성 생각 해야함
-        String couponNumber="testtest00";
+
+        String couponNumber=new SimpleDateFormat("MMddhhmmss").format(new Date());
         Connection conn = null;
         PreparedStatement pstmt = null;
         String query = String.format("INSERT INTO coupon VALUES('%s', %d)",couponNumber,couponAmount);
