@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DAOItem {
+    private int itemNumber;
     private String itemName;
     private int itemPrice;
     private DAOCategory daoCategory;

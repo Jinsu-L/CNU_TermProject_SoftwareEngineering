@@ -72,13 +72,14 @@ ADD PRIMARY KEY (payment_number);
 
 CREATE TABLE item
 (
-   item_name            VARCHAR(20) NOT NULL,
+   item_number          INTEGER NOT NULL,
+   item_name            VARCHAR(20)
    item_price           INTEGER NULL,
    categoryID           INTEGER NOT NULL
 );
 
 ALTER TABLE item
-ADD PRIMARY KEY (item_name);
+ADD PRIMARY KEY (item_number);
 
 CREATE TABLE payment
 (
@@ -135,13 +136,13 @@ INSERT INTO category VALUES(3,'사이드');
 INSERT INTO category VALUES(4,'음료수');
 INSERT INTO category VALUES(5,'기타');
 
-INSERT INTO item VALUES('동하 버거 세트', 9500, 1);
-INSERT INTO item VALUES('동의 버거 세트', 6500, 1);
-INSERT INTO item VALUES('동하 버거', 5500, 2);
-INSERT INTO item VALUES('근우 버거', 3500, 2);
-INSERT INTO item VALUES('소공 쉐이크', 2000, 3);
-INSERT INTO item VALUES('콜라', 1000, 3);
-INSERT INTO item VALUES('감자 튀김', 2300, 4);
-INSERT INTO item VALUES('애플 파이', 3000, 4);
-INSERT INTO item VALUES('성적', 9999, 5);
+INSERT INTO item VALUES(1,'동하 버거 세트', 9500, 1);
+INSERT INTO item VALUES(2,'동의 버거 세트', 6500, 1);
+INSERT INTO item VALUES(3,'동하 버거', 5500, 2);
+INSERT INTO item VALUES(4,'근우 버거', 3500, 2);
+INSERT INTO item VALUES(5,'소공 쉐이크', 2000, 3);
+INSERT INTO item VALUES(6,'콜라', 1000, 3);
+INSERT INTO item VALUES(7,'감자 튀김', 2300, 4);
+INSERT INTO item VALUES(8,'애플 파이', 3000, 4);
+INSERT INTO item VALUES(9,'성적', 9999, 5);
 ```
