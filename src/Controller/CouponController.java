@@ -1,5 +1,6 @@
 package Controller;
 
+import DAO.DAOCoupon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -123,6 +124,6 @@ public class CouponController implements Initializable {
 
     /* Todo coupon 발급 기능 */
     private String getCouponNumber(int inputPrice) {
-        return "coupon-12345";
+        return new DAOCoupon().createCoupon(inputPrice);
     }
 }

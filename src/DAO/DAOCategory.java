@@ -50,20 +50,20 @@ public class DAOCategory {
         return result;
     }
 
-    public void setCategoryID(int categoryID) {
-        this.categoryNumber = categoryID;
+    public void setCategoryNumber(int categoryNumber) {
+        this.categoryNumber = categoryNumber;
     }
 
     public String getCategoryName() {
         return categoryName;
     }
 
-    public String getCategoryName(int categoryID){
+    public String getCategoryName(int categoryNumber){
         String result="";
         Connection conn = null;
         PreparedStatement pstmt=null;
         ResultSet rs =null;
-        String query = String.format("SELECT category_name FROM category WHERE categoryID=%d",categoryID);
+        String query = String.format("SELECT category_name FROM category WHERE category_number=%d",categoryNumber);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -100,9 +100,9 @@ public class DAOCategory {
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                int rsCategoryID=rs.getInt("categoryID");
+                int rsCategoryNumber=rs.getInt("category_number");
                 String rsCategoryName=rs.getString("category_name");
-                result.add(new DAOCategory(rsCategoryID,rsCategoryName));
+                result.add(new DAOCategory(rsCategoryNumber,rsCategoryName));
             }
             rs.close();
             pstmt.close();

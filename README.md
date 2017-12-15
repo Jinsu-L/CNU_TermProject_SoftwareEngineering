@@ -42,7 +42,7 @@ PW : root
 ```sql
 CREATE TABLE environment
 (
-    userID              INTEGER NOT NULL AUTO_INCREMENT,
+    user_number         INTEGER NOT NULL AUTO_INCREMENT,
     password            VARCHAR(20) NOT NULL,
     PRIMARY KEY (userID)
 );
@@ -65,7 +65,7 @@ CREATE TABLE card_payment
 
 CREATE TABLE category
 (
-   categoryID           INTEGER NOT NULL AUTO_INCREMENT,
+   category_number           INTEGER NOT NULL AUTO_INCREMENT,
    category_name        VARCHAR(20) NULL,
    PRIMARY KEY(categoryID)
 );

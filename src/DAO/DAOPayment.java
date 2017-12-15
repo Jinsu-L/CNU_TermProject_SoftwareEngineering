@@ -87,7 +87,7 @@ public class DAOPayment {
     }
 
     //매출 현황 조회
-    public ArrayList<DAOPayment> selectPayment(String start,String end){
+    public static ArrayList<DAOPayment> selectPayment(String start,String end){
         ArrayList<DAOPayment> result=new ArrayList<>();
         Connection conn = null;
         PreparedStatement pstmt = null;
