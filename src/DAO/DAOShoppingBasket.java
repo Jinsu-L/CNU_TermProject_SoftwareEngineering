@@ -32,11 +32,11 @@ public class DAOShoppingBasket {
     //상품 수량 변경
 
     //상품 선택 삭제
-    public void deleteHistory(int shoppingBasketNumber,String itemName){
-        daoShoppingHistory.deleteHistory(shoppingBasketNumber,itemName);
+    public ArrayList<DAOShoppingHistory> deleteHistory(int shoppingBasketNumber,String itemName){
+        return daoShoppingHistory.deleteHistory(shoppingBasketNumber,itemName);
     }
     //상품 전체 삭제
-    public void deleteHistory(int shoppingBasketNumber){
-        daoShoppingHistory.deleteHistory(shoppingBasketNumber);
+    public ArrayList<DAOShoppingHistory> deleteHistory(int shoppingBasketNumber){
+        return daoShoppingHistory.deleteHistory(shoppingBasketNumber);
     }
 }
