@@ -251,4 +251,38 @@ public class DAOItem {
             }
         }
     }
+
+    public static int getItemSize(){
+        int size=-1;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM shopping_basket";
+        try {
+            ConnectionManager cm = new ConnectionManager();
+            conn = cm.getConnection();
+            pstmt = conn.prepareStatement(query);
+            rs = pstmt.executeQuery();
+            rs.last();
+            size=rs.getRow();
+            rs.close();
+            pstmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (Exception e) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (Exception e) {
+            }
+        }
+        return size;
+    }
 }

@@ -30,7 +30,7 @@ public class DAOCategory {
         Connection conn = null;
         PreparedStatement pstmt=null;
         ResultSet rs =null;
-        String query = "SELECT categoryID FROM category WHERE category_name='"+categoryName+"'";
+        String query = String.format("SELECT categoryID FROM category WHERE category_name='%s'",categoryName);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -63,7 +63,7 @@ public class DAOCategory {
         Connection conn = null;
         PreparedStatement pstmt=null;
         ResultSet rs =null;
-        String query = "SELECT category_name FROM category WHERE categoryID='"+categoryID+"'";
+        String query = String.format("SELECT category_name FROM category WHERE categoryID=%d",categoryID);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
