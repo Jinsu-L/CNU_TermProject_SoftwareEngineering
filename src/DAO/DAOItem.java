@@ -1,6 +1,7 @@
 package DAO;
 
 import DBCP.ConnectionManager;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -93,14 +94,14 @@ public class DAOItem {
         return result;
     }
 
-    //해당 카테고리 상품 요청청
+    //해당 카테고리 상품 요청
     public ArrayList<DAOItem> getItems(String categoryName) {
         ArrayList<DAOItem> result = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         DAOCategory rsDAOCategory = new DAOCategory(getDaoCategory().getCategoryID(categoryName), categoryName);
-        String query = "SELECT * FROM item WHERE categoryID='" + rsDAOCategory.getCategoryID() + "'";
+        String query = String.format("SELECT * FROM item WHERE categoryID=%d",rsDAOCategory.getCategoryID());
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -133,19 +134,21 @@ public class DAOItem {
     }
 
     //상품 등록 요청
-    public void insertItem(String itemName, int itemPrice, String categoryName) {
+    public boolean insertItem(String itemName, int itemPrice, String categoryName) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         DAOCategory rsDAOCategory = new DAOCategory(getDaoCategory().getCategoryID(categoryName), categoryName);
-        String query = "INSERT INTO item VALUES (" + itemName + "," + itemPrice + "," + rsDAOCategory.getCategoryID() + ")";
+        String query=String.format("INSERT INTO item VALUES('%s', %d, %d)",itemName,itemPrice,rsDAOCategory.getCategoryID());
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
             pstmt = conn.prepareStatement(query);
             pstmt.executeUpdate();
             pstmt.close();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         } finally {
             if (pstmt != null) try {
                 pstmt.close();
@@ -164,7 +167,7 @@ public class DAOItem {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM item WHERE item_name='" + itemName + "'";
+        String query = String.format("SELECT * FROM item WHERE item_name='%s'",itemName);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -200,7 +203,7 @@ public class DAOItem {
         DAOItem result = new DAOItem(itemName);
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query = "DELETE FROM item WHERE item_name='" + itemName + "'";
+        String query=String.format("DELETE FROM item WHERE item_name='%s'",itemName);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -227,7 +230,7 @@ public class DAOItem {
         Connection conn = null;
         PreparedStatement pstmt = null;
         int newCategoryID = daoCategory.getCategoryID(newCategoryName);
-        String query = "UPDATE FROM item SET item_name='" + newItemName + "', item_price =" + newItemPrice + ", categoryID=" + newCategoryID + "WHERE item_name='" + itemName + "'";
+        String query=String.format("UPDATE FROM item SET item_name='%s', item_price=%d, categoryId=%d WHERE item_name='%s'",newItemName,newItemPrice,newCategoryID,itemName);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
