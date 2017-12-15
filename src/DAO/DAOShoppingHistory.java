@@ -7,29 +7,29 @@ import java.util.ArrayList;
 public class DAOShoppingHistory {
     private int shoppingHistoryNumber;
     private int itemQuantity;
-    private DAOShoppingBasket daoShoppingBasket;
+    private int daoShoppingBasketNumber;
     private DAOItem daoItem;
 
     private static int shoppingHistoryCount=0;
 
     public DAOShoppingHistory() {
-        this.shoppingHistoryNumber=shoppingHistoryCount++;
+        this.shoppingHistoryNumber=this.getHistorySize();
         this.itemQuantity=0;
-        daoShoppingBasket=new DAOShoppingBasket();
+        this.daoShoppingBasketNumber=-1;
         this.daoItem=new DAOItem();
     }
 
-    public DAOShoppingHistory(int shoppingHistoryNumber) {
-        this.shoppingHistoryNumber = shoppingHistoryNumber;
+    public DAOShoppingHistory(int daoShoppingBasketNumber){
+        this.shoppingHistoryNumber=this.getHistorySize();
         this.itemQuantity=0;
-        daoShoppingBasket=new DAOShoppingBasket();
+        this.daoShoppingBasketNumber=daoShoppingBasketNumber;
         this.daoItem=new DAOItem();
     }
 
-    public DAOShoppingHistory(int shoppingHistoryNumber, int itemQuantity, DAOShoppingBasket daoShoppingBasket, DAOItem daoItem) {
+    public DAOShoppingHistory(int shoppingHistoryNumber, int itemQuantity, int daoShoppingBasketNumber, DAOItem daoItem) {
         this.shoppingHistoryNumber = shoppingHistoryNumber;
         this.itemQuantity = itemQuantity;
-        this.daoShoppingBasket = daoShoppingBasket;
+        this.daoShoppingBasketNumber=daoShoppingBasketNumber;
         this.daoItem = daoItem;
     }
 
@@ -49,12 +49,12 @@ public class DAOShoppingHistory {
         this.itemQuantity = itemQuantity;
     }
 
-    public DAOShoppingBasket getDaoShoppingBasket() {
-        return daoShoppingBasket;
+    public int getDaoShoppingBasketNumber() {
+        return daoShoppingBasketNumber;
     }
 
-    public void setDaoShoppingBasket(DAOShoppingBasket daoShoppingBasket) {
-        this.daoShoppingBasket = daoShoppingBasket;
+    public void setDaoShoppingBasketNumber(int daoShoppingBasketNumber) {
+        this.daoShoppingBasketNumber = daoShoppingBasketNumber;
     }
 
     public DAOItem getDaoItem() {
@@ -206,9 +206,9 @@ public class DAOShoppingHistory {
             while (rs.next()) {
                 int rsShoppingHistoryNumber=rs.getInt("shopping_history_number");
                 int rsItemQuantity=rs.getInt("item_quantity");
-                DAOShoppingBasket rsDaoShoppingBasket=new DAOShoppingBasket(shoppingBasketNumber);
+                int rsShoppingBasketNumber=rs.getInt("shopping_basket_number");
                 DAOItem rsDaoItem=daoItem.getItemDetail(rs.getString("item_name"));
-                result.add(new DAOShoppingHistory(rsShoppingHistoryNumber,rsItemQuantity,rsDaoShoppingBasket,rsDaoItem));
+                result.add(new DAOShoppingHistory(rsShoppingHistoryNumber,rsItemQuantity,rsShoppingBasketNumber,rsDaoItem));
             }
             rs.close();
             pstmt.close();

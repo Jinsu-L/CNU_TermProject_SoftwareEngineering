@@ -17,6 +17,7 @@ public class DAOShoppingBasket {
 
     public DAOShoppingBasket(int shoppingBasketNumber) {
         this.shoppingBasketNumber = shoppingBasketNumber;
+        this.daoShoppingHistory=new DAOShoppingHistory();
         this.daoShoppingHistories=getDaoShoppingHistory().getShoppingHistories(this.getShoppingBasketNumber());
     }
 
