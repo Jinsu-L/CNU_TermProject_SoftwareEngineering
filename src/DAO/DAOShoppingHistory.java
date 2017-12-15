@@ -99,6 +99,7 @@ public class DAOShoppingHistory {
         return new ArrayList<>();
     }
 
+    //장바구니 선택 삭제
     public ArrayList<DAOShoppingHistory> deleteHistory(int shoppingBasketNumber,String itemName) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -125,7 +126,7 @@ public class DAOShoppingHistory {
     }
 
     //아이템 수량 변경
-    public void updateHistory(int shoppingBasketNumber, String itemName, int itemQuantity){
+    public ArrayList<DAOShoppingHistory> updateHistory(int shoppingBasketNumber, String itemName, int itemQuantity){
         Connection conn = null;
         PreparedStatement pstmt = null;
         String query = String.format("UPDATE FROM shopping_history SET item_quantity=%d WHERE shopping_basket_number=%d AND item_name='%s'",itemQuantity,shoppingBasketNumber,itemName);
@@ -147,23 +148,25 @@ public class DAOShoppingHistory {
             } catch (Exception e) {
             }
         }
+        return getShoppingHistories(shoppingBasketNumber);
     }
 
     //상품 담기
-    public  void insertHistory(int shoppingHistoryNumber,String itemName){
+    public ArrayList<DAOShoppingHistory> insertHistory(int shoppingBasketNumber,String itemName){
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String query = String.format("SELECT * FROM shopping_history WHERE shopping_history_number =%d AND  item_name='%s'",shoppingHistoryNumber,itemName);
+        String query = String.format("SELECT * FROM shopping_history WHERE shopping_basket_number =%d AND  item_name='%s'",shoppingBasketNumber,itemName);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             if(rs.next()){
-                updateHistory(shoppingHistoryNumber,itemName,rs.getInt("item_quantity")+1);
+                //해당 바구니에 상품 존재시 수량 +1
+                updateHistory(shoppingBasketNumber,itemName,rs.getInt("item_quantity")+1);
             }else{
-                query=String.format("INSERT INTO shopping_history VALUES (%d, 1, %d,'%s')",shoppingHistoryNumber,shoppingHistoryCount++,itemName);
+                query=String.format("INSERT INTO shopping_history VALUES (%d, 1, %d,'%s')",shoppingHistoryCount++,shoppingBasketNumber,itemName);
                 pstmt=conn.prepareStatement(query);
                 pstmt.executeUpdate();
             }
@@ -185,6 +188,7 @@ public class DAOShoppingHistory {
             } catch (Exception e) {
             }
         }
+        return getShoppingHistories(shoppingBasketNumber);
     }
 
     //해당 장바구니 번호의 장바구니 내역 반환

@@ -7,12 +7,12 @@ public class DAOShoppingBasket {
     private ArrayList<DAOShoppingHistory> daoShoppingHistories;
     private DAOShoppingHistory daoShoppingHistory;
 
-    static private int shoppingBasketCount=0;
+    static private int shoppingBasketCount = 0;
 
     public DAOShoppingBasket() {
-        this.shoppingBasketNumber=shoppingBasketCount++;
-        daoShoppingHistories=new ArrayList<>();
-        daoShoppingHistory=new DAOShoppingHistory();
+        this.shoppingBasketNumber = shoppingBasketCount++;
+        daoShoppingHistories = new ArrayList<>();
+        daoShoppingHistory = new DAOShoppingHistory();
     }
 
     public DAOShoppingBasket(int shoppingBasketNumber) {
@@ -28,15 +28,22 @@ public class DAOShoppingBasket {
     }
 
     //상품 담기
+    public ArrayList<DAOShoppingHistory> insertHistory(int shoppingBasketNumber, String itemName) {
+        return daoShoppingHistory.insertHistory(shoppingBasketNumber, itemName);
+    }
 
     //상품 수량 변경
+    public ArrayList<DAOShoppingHistory> updateHistory(int shoppingBasketNumber, String itemName, int itemQuantity) {
+        return daoShoppingHistory.updateHistory(shoppingBasketNumber, itemName, itemQuantity);
+    }
 
     //상품 선택 삭제
-    public void deleteHistory(int shoppingBasketNumber,String itemName){
-        daoShoppingHistory.deleteHistory(shoppingBasketNumber,itemName);
+    public ArrayList<DAOShoppingHistory> deleteHistory(int shoppingBasketNumber, String itemName) {
+        return daoShoppingHistory.deleteHistory(shoppingBasketNumber, itemName);
     }
+
     //상품 전체 삭제
-    public void deleteHistory(int shoppingBasketNumber){
-        daoShoppingHistory.deleteHistory(shoppingBasketNumber);
+    public ArrayList<DAOShoppingHistory> deleteHistory(int shoppingBasketNumber) {
+        return daoShoppingHistory.deleteHistory(shoppingBasketNumber);
     }
 }
