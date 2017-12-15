@@ -226,9 +226,7 @@ public class DAOItem {
     }
 
     //상품 수정 요청
-    public boolean updateItem(String itemName, String newItemName, int newItemPrice, String newCategoryName) {
-        if (itemName.equals(newItemName))
-            return false;
+    public void updateItem(String itemName, String newItemName, int newItemPrice, String newCategoryName) {
         DAOItem result = new DAOItem(itemName);
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -251,7 +249,6 @@ public class DAOItem {
                 conn.close();
             } catch (Exception e) {
             }
-            return true;
         }
     }
 

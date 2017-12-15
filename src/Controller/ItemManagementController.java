@@ -84,9 +84,8 @@ public class ItemManagementController implements Initializable {
         String newname = ItemNameTF.getText();
         int price = Integer.parseInt(PriceBox.getText());
         String category = (String) ChoiceCategory.getSelectionModel().getSelectedItem();
-        if (!new DAOItem().updateItem(oldname,newname, price, category)) {
-            alert("상품명 중복","상품명 중복");
-        }
+        new DAOItem().updateItem(oldname,newname, price, category);
+
     }
 
     @FXML
