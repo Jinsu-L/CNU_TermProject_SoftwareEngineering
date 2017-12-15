@@ -235,11 +235,11 @@ public class ShoppingBasketController implements Initializable {
     private int gap = 15;
 
     public void refreshTab() {
-        settingTab(TabSet, "set");
-        settingTab(TabSingle, "single");
-        settingTab(TabDrink, "drink");
-        settingTab(TabSide, "side");
-        settingTab(TabETC, "etc");
+        settingTab(TabSet, "세트");
+        settingTab(TabSingle, "단품");
+        settingTab(TabDrink, "음료수");
+        settingTab(TabSide, "사이드");
+        settingTab(TabETC, "기타");
     }
 
     public void settingTab(Tab tab, String CategoryName) {

@@ -69,16 +69,31 @@ public class ItemManagementController implements Initializable {
     @FXML
     private void registerButtonAction(ActionEvent event) {
         System.out.println("register");
+        String name = ItemNameTF.getText();
+        int price = Integer.parseInt(PriceBox.getText());
+        String category = (String) ChoiceCategory.getSelectionModel().getSelectedItem();
+        if (!new DAOItem().insertItem(name, price, category)) {
+            System.out.println("Error!");
+        }
     }
 
     @FXML
     private void modifyButtonAction(ActionEvent event) {
         System.out.println("modify");
+        String oldname = itemListView.getSelectionModel().getSelectedItem().itemName.getValue();
+        String newname = ItemNameTF.getText();
+        int price = Integer.parseInt(PriceBox.getText());
+        String category = (String) ChoiceCategory.getSelectionModel().getSelectedItem();
+        if (!new DAOItem().updateItem(oldname,newname, price, category)) {
+            System.out.println("Error!");
+        }
     }
 
     @FXML
     private void deleteButtonAction(ActionEvent event) {
         System.out.println("delete");
+        String name = ItemNameTF.getText();
+        new DAOItem().deleteItem(name);
     }
 
     @Override
@@ -101,6 +116,7 @@ public class ItemManagementController implements Initializable {
         });
         loadCategoryList();
         loadItemList();
+        itemListView.getSelectionModel().selectFirst();
     }
 
     ObservableList<String> categoryList = FXCollections.observableArrayList();
@@ -112,11 +128,11 @@ public class ItemManagementController implements Initializable {
 //        for (DAOCategory category : categoryArrayList) {
 //            categoryList.add(category.getCategoryName());
 //        }
-        categoryList.add("set");
-        categoryList.add("single");
-        categoryList.add("drink");
-        categoryList.add("side");
-        categoryList.add("etc");
+        categoryList.add("세트");
+        categoryList.add("단품");
+        categoryList.add("음료수");
+        categoryList.add("사이드");
+        categoryList.add("기타");
 
         ChoiceCategory.setItems(categoryList);
     }

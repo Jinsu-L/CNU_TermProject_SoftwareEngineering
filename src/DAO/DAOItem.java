@@ -70,9 +70,9 @@ public class DAOItem {
             while (rs.next()) {
                 String rsItemName = rs.getString("item_name");
                 int rsItemPrice = rs.getInt("item_price");
-                int rsCategoryID=rs.getInt("categoryID");
-                DAOCategory rsDAOCategory=new DAOCategory(rsCategoryID,daoCategory.getCategoryName(rsCategoryID));
-                result.add(new DAOItem(rsItemName,rsItemPrice,rsDAOCategory));
+                int rsCategoryID = rs.getInt("categoryID");
+                DAOCategory rsDAOCategory = new DAOCategory(rsCategoryID, daoCategory.getCategoryName(rsCategoryID));
+                result.add(new DAOItem(rsItemName, rsItemPrice, rsDAOCategory));
             }
             rs.close();
             pstmt.close();
@@ -102,7 +102,7 @@ public class DAOItem {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         DAOCategory rsDAOCategory = new DAOCategory(getDaoCategory().getCategoryID(categoryName), categoryName);
-        String query = String.format("SELECT * FROM item WHERE categoryID=%d",rsDAOCategory.getCategoryID());
+        String query = String.format("SELECT * FROM item WHERE categoryID=%d", rsDAOCategory.getCategoryID());
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -139,7 +139,7 @@ public class DAOItem {
         Connection conn = null;
         PreparedStatement pstmt = null;
         DAOCategory rsDAOCategory = new DAOCategory(getDaoCategory().getCategoryID(categoryName), categoryName);
-        String query=String.format("INSERT INTO item VALUES('%s', %d, %d)",itemName,itemPrice,rsDAOCategory.getCategoryID());
+        String query = String.format("INSERT INTO item VALUES('%s', %d, %d)", itemName, itemPrice, rsDAOCategory.getCategoryID());
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -168,7 +168,7 @@ public class DAOItem {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String query = String.format("SELECT * FROM item WHERE item_name='%s'",itemName);
+        String query = String.format("SELECT * FROM item WHERE item_name='%s'", itemName);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -204,7 +204,7 @@ public class DAOItem {
         DAOItem result = new DAOItem(itemName);
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query=String.format("DELETE FROM item WHERE item_name='%s'",itemName);
+        String query = String.format("DELETE FROM item WHERE item_name='%s'", itemName);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -226,12 +226,14 @@ public class DAOItem {
     }
 
     //상품 수정 요청
-    public void updateItem(String itemName, String newItemName, int newItemPrice, String newCategoryName) {
+    public boolean updateItem(String itemName, String newItemName, int newItemPrice, String newCategoryName) {
+        if (itemName.equals(newItemName))
+            return false;
         DAOItem result = new DAOItem(itemName);
         Connection conn = null;
         PreparedStatement pstmt = null;
         int newCategoryID = daoCategory.getCategoryID(newCategoryName);
-        String query=String.format("UPDATE FROM item SET item_name='%s', item_price=%d, categoryId=%d WHERE item_name='%s'",newItemName,newItemPrice,newCategoryID,itemName);
+        String query = String.format("UPDATE FROM item SET item_name='%s', item_price=%d, categoryId=%d WHERE item_name='%s'", newItemName, newItemPrice, newCategoryID, itemName);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -249,11 +251,12 @@ public class DAOItem {
                 conn.close();
             } catch (Exception e) {
             }
+            return true;
         }
     }
 
-    public static int getItemSize(){
-        int size=-1;
+    public static int getItemSize() {
+        int size = -1;
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -264,7 +267,7 @@ public class DAOItem {
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             rs.last();
-            size=rs.getRow();
+            size = rs.getRow();
             rs.close();
             pstmt.close();
         } catch (Exception e) {
