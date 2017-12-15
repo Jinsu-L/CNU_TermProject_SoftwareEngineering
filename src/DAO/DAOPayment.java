@@ -153,13 +153,4 @@ public class DAOPayment {
             }
         }
     }
-
-    //카드 결제
-    public void insertCardPayment(int shoppingBasketNumber,int cardNumber,int paymentAmount){
-
-    }
-    //쿠폰 결제
-    public void insertCouponPayment(int shoppingBasketNumber,int couponNumber,int paymentAmount){
-
-    }
 }

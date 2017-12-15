@@ -32,13 +32,13 @@ public class ConnectionManager {
 
             ds.setPassword(passWord);
 
-            ds.setMaxActive(10);
+            ds.setMaxActive(100);
 
             ds.setInitialSize(10);
 
             ds.setMinIdle(5);
 
-            ds.setMaxWait(5000);
+            ds.setMaxWait(20);
 
             ds.setPoolPreparedStatements(true);
 
