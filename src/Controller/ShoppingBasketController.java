@@ -2,6 +2,8 @@ package Controller;
 
 import DAO.DAOItem;
 
+import DAO.DAOShoppingBasket;
+import DAO.DAOShoppingHistory;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -90,8 +92,7 @@ public class ShoppingBasketController implements Initializable {
     @FXML
     private TableColumn<TableRowDataModel, Integer> price;
 
-
-    ObservableList<TableRowDataModel> tempList = FXCollections.observableArrayList();
+    DAOShoppingBasket shoppingBasket;
 
 
     private boolean managementToggle = false;
@@ -172,14 +173,14 @@ public class ShoppingBasketController implements Initializable {
     private void slcDelButtonAction(ActionEvent event) {
         System.out.println("slcDelBtn");
         int index = basketList.getSelectionModel().getSelectedIndex();
-        if (!tempList.isEmpty() && index >= 0)
-            tempList.remove(index);
+//        if (!tempList.isEmpty() && index >= 0)
+//            tempList.remove(index);
     }
 
     @FXML
     private void allDelButtonAction(ActionEvent event) {
         System.out.println("allDelBtn");
-        tempList.clear();
+//        tempList.clear();
         refreshBasketList();
     }
 
@@ -208,6 +209,7 @@ public class ShoppingBasketController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("hello!!");
         itemMangementBtn.setOnAction(this::itemManagementButtonAction);
         mangementBtn.setOnAction(this::mangementButtonAction);
         couponBtn.setOnAction(this::couponButtonAction);
@@ -218,7 +220,7 @@ public class ShoppingBasketController implements Initializable {
         allDelBtn.setOnAction(this::allDelButtonAction);
         payBtn.setOnAction(this::payButtonAction);
         applyBtn.setOnAction(this::applyButtonAction);
-        System.out.println("hello!!");
+        shoppingBasket = new DAOShoppingBasket();
         refreshTab();
         refreshBasketList();
     }
@@ -266,8 +268,8 @@ public class ShoppingBasketController implements Initializable {
     private void menuItemAction(ActionEvent event) {
         Node node = (Node) event.getSource();
         System.out.println(node.getId());
-        DAOItem insert = new DAOItem().getItemDetail(node.getId());
-        basketList.getItems().add(new TableRowDataModel(new SimpleStringProperty(insert.getItemName()), new SimpleIntegerProperty(1), new SimpleIntegerProperty(insert.getItemPrice())));
+        ArrayList newList = shoppingBasket.insertHistory(shoppingBasket.getShoppingBasketNumber(),node.getId());
+        basketList.setItems(convertHistoryArrayListToObservableList(newList));
     }
 
 
@@ -279,7 +281,18 @@ public class ShoppingBasketController implements Initializable {
         itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
         amount.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
         price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
-        basketList.setItems(tempList);
+        basketList.setItems(convertHistoryArrayListToObservableList(shoppingBasket.getDaoShoppingHistories()));
+    }
+
+    public ObservableList<TableRowDataModel> convertHistoryArrayListToObservableList(ArrayList Histories) {
+        ObservableList<TableRowDataModel> tempList = FXCollections.observableArrayList();
+        for (Object history : Histories) {
+            SimpleStringProperty ItemName = new SimpleStringProperty(((DAOShoppingHistory) history).getDaoItem().getItemName());
+            int amount = ((DAOShoppingHistory) history).getItemQuantity();
+            int price = ((DAOShoppingHistory) history).getDaoItem().getItemPrice();
+            tempList.add(new TableRowDataModel(ItemName, new SimpleIntegerProperty(amount), new SimpleIntegerProperty(amount * price)));
+        }
+        return tempList;
     }
 
     public class TableRowDataModel {

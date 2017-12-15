@@ -65,7 +65,7 @@ public class DAOShoppingBasket {
         return daoShoppingHistory.deleteHistory(shoppingBasketNumber);
     }
 
-    public int getBasketSize(){
+    public static int getBasketSize(){
         int size=-1;
         Connection conn = null;
         PreparedStatement pstmt = null;
