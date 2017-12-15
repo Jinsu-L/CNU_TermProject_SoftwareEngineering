@@ -73,7 +73,7 @@ public class ItemManagementController implements Initializable {
         int price = Integer.parseInt(PriceBox.getText());
         String category = (String) ChoiceCategory.getSelectionModel().getSelectedItem();
         if (!new DAOItem().insertItem(name, price, category)) {
-            System.out.println("Error!");
+            alert("상품명 중복","상품명 중복");
         }
     }
 
@@ -85,7 +85,7 @@ public class ItemManagementController implements Initializable {
         int price = Integer.parseInt(PriceBox.getText());
         String category = (String) ChoiceCategory.getSelectionModel().getSelectedItem();
         if (!new DAOItem().updateItem(oldname,newname, price, category)) {
-            System.out.println("Error!");
+            alert("상품명 중복","상품명 중복");
         }
     }
 
@@ -147,6 +147,15 @@ public class ItemManagementController implements Initializable {
         category.setCellValueFactory(cellData -> cellData.getValue().categoryProperty());
         price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         itemListView.setItems(itemList);
+    }
+
+    public void alert(String title,String body){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(body);
+
+        alert.showAndWait();
     }
 
     public class TableRowDataModel {
