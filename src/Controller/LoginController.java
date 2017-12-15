@@ -1,5 +1,6 @@
 package Controller;
 
+import DBCP.ConnectionManager;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -10,6 +11,9 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -83,7 +87,36 @@ public class LoginController implements Initializable {
 
     /* Todo 여기서 Password 확인해서 로그인 처리 해야 */
     private boolean checkPassword(String input) {
-        String password = "admin";
+        String password = "";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM environment";
+        try {
+            ConnectionManager cm = new ConnectionManager();
+            conn = cm.getConnection();
+            pstmt = conn.prepareStatement(query);
+            rs = pstmt.executeQuery();
+            rs.next();
+            password=rs.getString("password");
+            rs.close();
+            pstmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+            }
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (Exception e) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (Exception e) {
+            }
+        }
         return input.equals(password);
     }
 }

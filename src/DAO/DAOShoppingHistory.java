@@ -15,7 +15,7 @@ public class DAOShoppingHistory {
     public DAOShoppingHistory() {
         this.shoppingHistoryNumber=this.getHistorySize();
         this.itemQuantity=0;
-        this.daoShoppingBasketNumber=-1;
+        this.daoShoppingBasketNumber=DAOShoppingBasket.getBasketSize();
         this.daoItem=new DAOItem();
     }
 
@@ -166,7 +166,7 @@ public class DAOShoppingHistory {
                 //해당 바구니에 상품 존재시 수량 +1
                 updateHistory(shoppingBasketNumber,itemName,rs.getInt("item_quantity")+1);
             }else{
-                query=String.format("INSERT INTO shopping_history VALUES (%d, 1, %d,'%s')",shoppingHistoryCount++,shoppingBasketNumber,itemName);
+                query=String.format("INSERT INTO shopping_history VALUES (%d, 1, %d,'%s')",getShoppingHistoryNumber(),shoppingBasketNumber,itemName);
                 pstmt=conn.prepareStatement(query);
                 pstmt.executeUpdate();
             }

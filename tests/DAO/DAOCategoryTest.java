@@ -20,7 +20,7 @@ public class DAOCategoryTest {
         testlist.add(new DAOCategory(5,"기타"));
         assertThat(getlist.size(),is(testlist.size()));
         for(int i=0;i<5;i++){
-            assertThat(getlist.get(i).getCategoryID(),is(testlist.get(i).getCategoryID()));
+            assertThat(getlist.get(i).getCategoryNumber(),is(testlist.get(i).getCategoryNumber()));
             assertThat(getlist.get(i).getCategoryName(),is(testlist.get(i).getCategoryName()));
         }
     }

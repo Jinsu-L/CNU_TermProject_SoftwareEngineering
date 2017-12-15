@@ -11,8 +11,9 @@ public class DAOShoppingBasket {
     private DAOShoppingHistory daoShoppingHistory;
 
     public DAOShoppingBasket() {
+        this.shoppingBasketNumber=getBasketSize();
         daoShoppingHistories = new ArrayList<>();
-        daoShoppingHistory = new DAOShoppingHistory();
+        daoShoppingHistory = new DAOShoppingHistory(getShoppingBasketNumber());
     }
 
     public DAOShoppingBasket(int shoppingBasketNumber) {
@@ -65,7 +66,7 @@ public class DAOShoppingBasket {
         return daoShoppingHistory.deleteHistory(shoppingBasketNumber);
     }
 
-    public int getBasketSize(){
+    public static int getBasketSize(){
         int size=-1;
         Connection conn = null;
         PreparedStatement pstmt = null;

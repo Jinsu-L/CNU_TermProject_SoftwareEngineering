@@ -40,6 +40,20 @@ PW : root
 ## DB Setting 쿼리 값
 
 ```sql
+CREATE TABLE environment
+(
+    userID              INTEGER NOT NULL AUTO_INCREMENT,
+    password            VARCHAR(20) NOT NULL,
+    PRIMARY KEY (userID)
+);
+
+CREATE TABLE coupon
+(
+    coupon_number       VARCHAR(10) NOT NULL,
+    coupon_amount       INTEGER NULL,
+    PRIMARY KEY (coupon_number)
+);
+
 CREATE TABLE card_payment
 (
    payment_number       INTEGER NOT NULL,
@@ -95,27 +109,30 @@ CREATE TABLE shopping_history
    shopping_history_number INTEGER NOT NULL AUTO_INCREMENT,
    item_quantity        INTEGER NULL,
    shopping_basket_number INTEGER NOT NULL,
-   item_name            VARCHAR(20) NOT NULL,
+   item_number            INTEGER NOT NULL,
    PRIMARY KEY(shopping_history_number)
 );
 
 ALTER TABLE card_payment
-ADD CONSTRAINT R_4 FOREIGN KEY (payment_number) REFERENCES payment (payment_number);
+ADD CONSTRAINT R_4 FOREIGN KEY (payment_number) REFERENCES payment (payment_number)ON DELETE CASCADE ON UPDATE CASCADE ;
 
 ALTER TABLE coupon_payment
-ADD CONSTRAINT R_5 FOREIGN KEY (payment_number) REFERENCES payment (payment_number);
+ADD CONSTRAINT R_5 FOREIGN KEY (payment_number) REFERENCES payment (payment_number)ON DELETE CASCADE ON UPDATE CASCADE ;
+
+ALTER TABLE coupon_payment
+ADD CONSTRAINT R_8 FOREIGN KEY (coupon_number) REFERENCES coupon (coupon_number)ON DELETE CASCADE ON UPDATE CASCADE ;
 
 ALTER TABLE item
-ADD CONSTRAINT R_6 FOREIGN KEY (categoryID) REFERENCES category (categoryID);
+ADD CONSTRAINT R_6 FOREIGN KEY (categoryID) REFERENCES category (categoryID)ON DELETE CASCADE ON UPDATE CASCADE ;
 
 ALTER TABLE payment
-ADD CONSTRAINT R_1 FOREIGN KEY (shopping_basket_number) REFERENCES shopping_basket (shopping_basket_number);
+ADD CONSTRAINT R_1 FOREIGN KEY (shopping_basket_number) REFERENCES shopping_basket (shopping_basket_number)ON DELETE CASCADE ON UPDATE CASCADE ;
 
 ALTER TABLE shopping_history
-ADD CONSTRAINT R_2 FOREIGN KEY (shopping_basket_number) REFERENCES shopping_basket (shopping_basket_number);
+ADD CONSTRAINT R_2 FOREIGN KEY (shopping_basket_number) REFERENCES shopping_basket (shopping_basket_number)ON DELETE CASCADE ON UPDATE CASCADE ;
 
 ALTER TABLE shopping_history
-ADD CONSTRAINT R_20 FOREIGN KEY (item_name) REFERENCES item (item_name);
+ADD CONSTRAINT R_20 FOREIGN KEY (item_number) REFERENCES item (item_number)ON DELETE CASCADE ON UPDATE CASCADE ;
 
 INSERT INTO category (category_name) VALUES('세트');
 INSERT INTO category (category_name) VALUES('단품');
@@ -127,9 +144,9 @@ INSERT INTO item (item_name, item_price, categoryID) VALUES('동하 버거 세�
 INSERT INTO item (item_name, item_price, categoryID) VALUES('동의 버거 세트', 6500, 1);
 INSERT INTO item (item_name, item_price, categoryID) VALUES('동하 버거', 5500, 2);
 INSERT INTO item (item_name, item_price, categoryID) VALUES('근우 버거', 3500, 2);
-INSERT INTO item (item_name, item_price, categoryID) VALUES('소공 쉐이크', 2000, 3);
-INSERT INTO item (item_name, item_price, categoryID) VALUES('콜라', 1000, 3);
-INSERT INTO item (item_name, item_price, categoryID) VALUES('감자 튀김', 2300, 4);
-INSERT INTO item (item_name, item_price, categoryID) VALUES('애플 파이', 3000, 4);
+INSERT INTO item (item_name, item_price, categoryID) VALUES('감자 튀김', 2300, 3);
+INSERT INTO item (item_name, item_price, categoryID) VALUES('애플 파이', 3000, 3);
+INSERT INTO item (item_name, item_price, categoryID) VALUES('소공 쉐이크', 2000, 4);
+INSERT INTO item (item_name, item_price, categoryID) VALUES('콜라', 1000, 4);
 INSERT INTO item (item_name, item_price, categoryID) VALUES('성적', 9999, 5);
 ```

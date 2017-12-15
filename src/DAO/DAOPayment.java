@@ -19,9 +19,7 @@ public class DAOPayment {
     private String paymentDate;
     private DAOShoppingBasket daoShoppingBasket;
 
-    static private int paymentCount=0;
-
-    public DAOPayment(int paymentNumber,int paymentAmount) {
+    public DAOPayment(int paymentNumber, int paymentAmount) {
         this.paymentNumber = paymentNumber;
         this.paymentAmount=paymentAmount;
         this.paymentType=Type.CASH;
@@ -134,7 +132,30 @@ public class DAOPayment {
     public void insertPayment(int shoppingBasketNumber, int paymentAmount){
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query = String.format("INSERT INTO payment VALUES (%d,%d,'%s','%s',%d)",paymentCount++,paymentAmount,Type.CASH.toString().toLowerCase(),new SimpleDateFormat("yyyy-MM-dd").format(new Date()),shoppingBasketNumber);
+        String query = String.format("INSERT INTO payment VALUES (%d,%d,'%s','%s',%d)",paymentNumber,paymentAmount,Type.CASH.toString().toLowerCase(),new SimpleDateFormat("yyyy-MM-dd").format(new Date()),shoppingBasketNumber);
+        try {
+            ConnectionManager cm = new ConnectionManager();
+            conn = cm.getConnection();
+            pstmt = conn.prepareStatement(query);
+            pstmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (Exception e) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    public void deletePayment(int shoppingBasketNumber){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String query = String.format("DELETE FROM payment WHERE shopping_basket_number=%d",shoppingBasketNumber);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
