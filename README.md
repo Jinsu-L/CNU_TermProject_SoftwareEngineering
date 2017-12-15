@@ -129,14 +129,14 @@ ADD CONSTRAINT R_2 FOREIGN KEY (shopping_basket_number) REFERENCES shopping_bask
 
 ALTER TABLE shopping_history
 ADD CONSTRAINT R_20 FOREIGN KEY (item_name) REFERENCES item (item_name);
-INSERT INTO category VALUES(1,'set');
-INSERT INTO category VALUES(2,'single');
-INSERT INTO category VALUES(3,'drink');
-INSERT INTO category VALUES(4,'side');
-INSERT INTO category VALUES(5,'etc');
+INSERT INTO category VALUES(1,'세트');
+INSERT INTO category VALUES(2,'단품');
+INSERT INTO category VALUES(3,'사이드');
+INSERT INTO category VALUES(4,'음료수');
+INSERT INTO category VALUES(5,'기타');
 
 INSERT INTO item VALUES('동하 버거 세트', 9500, 1);
-INSERT INTO item VALUES('동하 버거 세트', 6500, 1);
+INSERT INTO item VALUES('동의 버거 세트', 6500, 1);
 INSERT INTO item VALUES('동하 버거', 5500, 2);
 INSERT INTO item VALUES('근우 버거', 3500, 2);
 INSERT INTO item VALUES('소공 쉐이크', 2000, 3);
