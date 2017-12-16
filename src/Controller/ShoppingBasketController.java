@@ -240,7 +240,7 @@ public class ShoppingBasketController implements Initializable {
     }
 
     public int getTotalPrice() {
-        return 25000;
+        return shoppingBasket.getBasketTotalPrice(shoppingBasket.getShoppingBasketNumber());
     }
 
     private int startX = 10;
