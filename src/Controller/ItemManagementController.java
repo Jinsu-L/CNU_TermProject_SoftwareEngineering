@@ -73,8 +73,9 @@ public class ItemManagementController implements Initializable {
         int price = Integer.parseInt(PriceBox.getText());
         String category = (String) ChoiceCategory.getSelectionModel().getSelectedItem();
         if (!new DAOItem().insertItem(name, price, category)) {
-            alert("상품명 중복","상품명 중복");
+            alert("상품명 중복", "상품명 중복");
         }
+        loadItemList();
     }
 
     @FXML
@@ -84,8 +85,8 @@ public class ItemManagementController implements Initializable {
         String newname = ItemNameTF.getText();
         int price = Integer.parseInt(PriceBox.getText());
         String category = (String) ChoiceCategory.getSelectionModel().getSelectedItem();
-        new DAOItem().updateItem(oldname,newname, price, category);
-
+        new DAOItem().updateItem(oldname, newname, price, category);
+        loadItemList();
     }
 
     @FXML
@@ -93,6 +94,7 @@ public class ItemManagementController implements Initializable {
         System.out.println("delete");
         String name = ItemNameTF.getText();
         new DAOItem().deleteItem(name);
+        loadItemList();
     }
 
     @Override
@@ -101,9 +103,14 @@ public class ItemManagementController implements Initializable {
         registerBtn.setOnAction(this::registerButtonAction);
         modifyBtn.setOnAction(this::modifyButtonAction);
         deleteBtn.setOnAction(this::deleteButtonAction);
+        itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
+        category.setCellValueFactory(cellData -> cellData.getValue().categoryProperty());
+        price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         itemListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TableRowDataModel>() {
             @Override
             public void changed(ObservableValue<? extends TableRowDataModel> observable, TableRowDataModel oldValue, TableRowDataModel newValue) {
+                if (itemList.isEmpty())
+                    return;
                 TableRowDataModel model = itemListView.getSelectionModel().getSelectedItem();
                 System.out.println(model.itemName);
                 System.out.println(model.price);
@@ -137,18 +144,16 @@ public class ItemManagementController implements Initializable {
     }
 
     public void loadItemList() {
+        itemList.clear();
         ArrayList<DAOItem> itemArrayList = new DAOItem().getItems();
         for (DAOItem item : itemArrayList) {
             itemList.add(new TableRowDataModel(new SimpleStringProperty(item.getItemName()), new SimpleStringProperty(item.getDaoCategory().getCategoryName()), new SimpleIntegerProperty(item.getItemPrice())));
         }
-
-        itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
-        category.setCellValueFactory(cellData -> cellData.getValue().categoryProperty());
-        price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         itemListView.setItems(itemList);
+        itemListView.getSelectionModel().selectFirst();
     }
 
-    public void alert(String title,String body){
+    public void alert(String title, String body) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);

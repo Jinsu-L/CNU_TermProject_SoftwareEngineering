@@ -201,7 +201,7 @@ public class DAOItem {
         Connection conn = null;
         PreparedStatement pstmt = null;
         DAOCategory rsDAOCategory = new DAOCategory(getDaoCategory().getCategoryNumber(categoryName), categoryName);
-        String query=String.format("INSERT INTO item (item_name, item_price, categoryID) VALUES('%s', %d, %d)",itemName,itemPrice,rsDAOCategory.getCategoryNumber());
+        String query=String.format("INSERT INTO item (item_name, item_price, category_number) VALUES('%s', %d, %d)",itemName,itemPrice,rsDAOCategory.getCategoryNumber());
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -293,7 +293,7 @@ public class DAOItem {
         Connection conn = null;
         PreparedStatement pstmt = null;
         int newCategoryID = daoCategory.getCategoryNumber(newCategoryName);
-        String query=String.format("UPDATE FROM item SET item_name='%s', item_price=%d, category_number=%d WHERE item_name='%s'",newItemName,newItemPrice,newCategoryID,itemName);
+        String query=String.format("UPDATE item SET item_name='%s', item_price=%d, category_number=%d WHERE item_name='%s'",newItemName,newItemPrice,newCategoryID,itemName);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();

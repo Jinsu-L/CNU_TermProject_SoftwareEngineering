@@ -200,7 +200,7 @@ public class ShoppingBasketController implements Initializable {
         System.out.println("payBtn");
 
         PaymentController paymentCont = new PaymentController();
-        if(paymentCont.PayProgress((Stage) payBtn.getScene().getWindow(), shoppingBasket.getShoppingBasketNumber(), getTotalPrice())) {
+        if (paymentCont.PayProgress((Stage) payBtn.getScene().getWindow(), shoppingBasket.getShoppingBasketNumber(), getTotalPrice())) {
             shoppingBasket = new DAOShoppingBasket();
             refreshBasketList();
         }
@@ -212,6 +212,10 @@ public class ShoppingBasketController implements Initializable {
         int index = basketList.getSelectionModel().getSelectedIndex();
         String temp = amountTF.getText();
         if (!"".equals(temp) && temp.matches("^[0-9]*$") && index >= 0) {
+            if(Integer.parseInt(temp) <= 0) {
+                alert("에러메시지", "입력문자 0");
+                return;
+            }
 //            TableRowDataModel modifyModel = basketList.getItems().get(index);
 //            IntegerProperty modify = new SimpleIntegerProperty(Integer.parseInt(temp));
 //            modifyModel.amount = modify;
@@ -220,6 +224,10 @@ public class ShoppingBasketController implements Initializable {
             String name = selectedModel.itemName.getValue();
             basketList.setItems(convertHistoryArrayListToObservableList(shoppingBasket.updateHistory(shoppingBasket.getShoppingBasketNumber(), name, Integer.parseInt(temp))));
             amountTF.clear();
+        } else if (index < 0) {
+            alert("에러메시지", "수정 상품 미선택!");
+        } else {
+            alert("에러메시지", "수량이 문자!");
         }
     }
 
