@@ -149,4 +149,7 @@ INSERT INTO item (item_name, item_price, category_number) VALUES('애플 파이'
 INSERT INTO item (item_name, item_price, category_number) VALUES('소공 쉐이크', 2000, 4);
 INSERT INTO item (item_name, item_price, category_number) VALUES('콜라', 1000, 4);
 INSERT INTO item (item_name, item_price, category_number) VALUES('성적', 9999, 5);
+
+INSERT INTO environment(password) VALUES('admin');
+
 ```
