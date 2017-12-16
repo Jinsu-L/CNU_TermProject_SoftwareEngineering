@@ -22,8 +22,11 @@ import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 /**
@@ -81,6 +84,9 @@ public class SalesStatusController implements Initializable {
         searchBtn.setOnAction(this::searchButtonAction);
         date.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
         daytotal.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+        end.setValue(LocalDate.now());
+        LocalDate date = LocalDate.now().minusMonths(1);
+        start.setValue(date);
     }
 
     public ObservableList<TableRowDataModel> convertPaymentArrayListToObservableList(ArrayList Payments) {
