@@ -81,7 +81,7 @@ CREATE TABLE coupon_payment
 CREATE TABLE item
 (
    item_number          INTEGER NOT NULL AUTO_INCREMENT,
-   item_name            VARCHAR(20),
+   item_name            VARCHAR(20) UNIQUE,
    item_price           INTEGER NULL,
    category_number           INTEGER NOT NULL,
    PRIMARY  KEY(item_number)
