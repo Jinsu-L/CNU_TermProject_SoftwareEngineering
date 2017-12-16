@@ -37,7 +37,7 @@ public class DAOCategory {
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             rs.next();
-            result=rs.getInt("categoryID");
+            result=rs.getInt("category_number");
             rs.close();
             pstmt.close();
         } catch (Exception e) {

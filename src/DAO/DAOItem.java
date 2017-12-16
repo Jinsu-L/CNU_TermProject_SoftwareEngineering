@@ -164,7 +164,7 @@ public class DAOItem {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         DAOCategory rsDAOCategory = new DAOCategory(getDaoCategory().getCategoryNumber(categoryName), categoryName);
-        String query = String.format("SELECT * FROM item WHERE categoryID=%d",rsDAOCategory.getCategoryNumber());
+        String query = String.format("SELECT * FROM item WHERE category_number=%d",rsDAOCategory.getCategoryNumber());
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();

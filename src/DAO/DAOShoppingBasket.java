@@ -11,15 +11,17 @@ public class DAOShoppingBasket {
     private DAOShoppingHistory daoShoppingHistory;
 
     public DAOShoppingBasket() {
-        this.shoppingBasketNumber=getBasketSize()+1;
+        this.shoppingBasketNumber = getBasketSize() + 1;
         daoShoppingHistories = new ArrayList<>();
         daoShoppingHistory = new DAOShoppingHistory(getShoppingBasketNumber());
+        insertBasket();
     }
 
     public DAOShoppingBasket(int shoppingBasketNumber) {
         this.shoppingBasketNumber = shoppingBasketNumber;
-        this.daoShoppingHistory=new DAOShoppingHistory();
-        this.daoShoppingHistories=getDaoShoppingHistory().getShoppingHistories(this.getShoppingBasketNumber());
+        this.daoShoppingHistory = new DAOShoppingHistory();
+        this.daoShoppingHistories = getDaoShoppingHistory().getShoppingHistories(this.getShoppingBasketNumber());
+        insertBasket();
     }
 
     public int getShoppingBasketNumber() {
@@ -66,8 +68,8 @@ public class DAOShoppingBasket {
         return daoShoppingHistory.deleteHistory(shoppingBasketNumber);
     }
 
-    public static int getBasketSize(){
-        int size=-1;
+    public static int getBasketSize() {
+        int size = -1;
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -78,7 +80,7 @@ public class DAOShoppingBasket {
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             rs.last();
-            size=rs.getRow();
+            size = rs.getgetRow();
             rs.close();
             pstmt.close();
         } catch (Exception e) {
@@ -100,10 +102,10 @@ public class DAOShoppingBasket {
         return size;
     }
 
-    public static void insertBasket(){
+    public static void insertBasket() {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query=String.format("INSERT INTO shopping_basket (total_amount) VALUES(0)");
+        String query = String.format("INSERT INTO shopping_basket (total_amount) VALUES(0)");
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -124,10 +126,10 @@ public class DAOShoppingBasket {
         }
     }
 
-    public static void deleteBasket(){
+    public void deleteBasket() {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query=String.format("DELETE FROM shopping_basket WHERE shopping_basket_number = %d",getBasketSize());
+        String query = String.format("DELETE FROM shopping_basket WHERE shopping_basket_number = %d", getBasketSize());
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();

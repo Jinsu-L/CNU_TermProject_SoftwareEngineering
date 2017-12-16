@@ -23,14 +23,16 @@ public class LogoutController implements Initializable {
 
     }
 
-    public void showLogoutDialog() {
+    public boolean showLogoutDialog() {
 
         Optional input = getDialog().showAndWait();
 
         if (input.isPresent()) {
-            if ((boolean) input.get())
-                System.exit(0);
+            if ((boolean) input.get()) {
+                return true;
+            }
         }
+        return false;
     }
 
     private Dialog getDialog() {

@@ -99,6 +99,7 @@ public class ShoppingBasketController implements Initializable {
 
     @FXML
     private void itemManagementButtonAction(ActionEvent event) {
+        shoppingBasket.deleteBasket();
         Parent ItemManagement = null;
         try {
             ItemManagement = FXMLLoader.load(getClass().getResource("/View/ItemManagement.fxml"));
@@ -142,6 +143,7 @@ public class ShoppingBasketController implements Initializable {
     @FXML
     private void salesStatusButtonAction(ActionEvent event) {
         System.out.println("salesStatusBtn");
+        shoppingBasket.deleteBasket();
         Parent SalesStatus = null;
         try {
             SalesStatus = FXMLLoader.load(getClass().getResource("/View/SalesStatus.fxml"));
@@ -166,7 +168,11 @@ public class ShoppingBasketController implements Initializable {
     private void logoutButtonAction(ActionEvent event) {
         System.out.println("logoutBtn");
         LogoutController logoutController = new LogoutController();
-        logoutController.showLogoutDialog();
+        if(logoutController.showLogoutDialog()){
+            shoppingBasket.deleteBasket();
+            System.exit(0);
+        }
+
     }
 
     @FXML
@@ -268,7 +274,7 @@ public class ShoppingBasketController implements Initializable {
     private void menuItemAction(ActionEvent event) {
         Node node = (Node) event.getSource();
         System.out.println(node.getId());
-        ArrayList newList = shoppingBasket.insertHistory(shoppingBasket.getShoppingBasketNumber(),node.getId());
+        ArrayList newList = shoppingBasket.insertHistory(shoppingBasket.getShoppingBasketNumber(), node.getId());
         basketList.setItems(convertHistoryArrayListToObservableList(newList));
     }
 
@@ -295,7 +301,7 @@ public class ShoppingBasketController implements Initializable {
         return tempList;
     }
 
-    public void alert(String title,String body){
+    public void alert(String title, String body) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
