@@ -15,7 +15,7 @@ public class DAOShoppingHistory {
     public DAOShoppingHistory() {
         this.shoppingHistoryNumber=this.getHistorySize()+1;
         this.itemQuantity=0;
-        this.daoShoppingBasketNumber=DAOShoppingBasket.getBasketSize();
+        this.daoShoppingBasketNumber=DAOShoppingBasket.getBasketIncrementNum();
         this.daoItem=new DAOItem();
     }
 

@@ -11,17 +11,17 @@ public class DAOShoppingBasket {
     private DAOShoppingHistory daoShoppingHistory;
 
     public DAOShoppingBasket() {
-        this.shoppingBasketNumber = getBasketSize() + 1;
+        insertBasket();
+        this.shoppingBasketNumber = getBasketIncrementNum();
         daoShoppingHistories = new ArrayList<>();
         daoShoppingHistory = new DAOShoppingHistory(getShoppingBasketNumber());
-        insertBasket();
     }
 
     public DAOShoppingBasket(int shoppingBasketNumber) {
+        insertBasket();
         this.shoppingBasketNumber = shoppingBasketNumber;
         this.daoShoppingHistory = new DAOShoppingHistory();
         this.daoShoppingHistories = getDaoShoppingHistory().getShoppingHistories(this.getShoppingBasketNumber());
-        insertBasket();
     }
 
     public int getShoppingBasketNumber() {
@@ -68,7 +68,7 @@ public class DAOShoppingBasket {
         return daoShoppingHistory.deleteHistory(shoppingBasketNumber);
     }
 
-    public static int getBasketSize() {
+    public static int getBasketIncrementNum() {
         int size = -1;
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -80,7 +80,7 @@ public class DAOShoppingBasket {
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             rs.last();
-            size = rs.getgetRow();
+            size = rs.getInt("shopping_basket_number");
             rs.close();
             pstmt.close();
         } catch (Exception e) {
@@ -129,7 +129,7 @@ public class DAOShoppingBasket {
     public void deleteBasket() {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query = String.format("DELETE FROM shopping_basket WHERE shopping_basket_number = %d", getBasketSize());
+        String query = String.format("DELETE FROM shopping_basket WHERE shopping_basket_number = %d", getBasketIncrementNum());
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
