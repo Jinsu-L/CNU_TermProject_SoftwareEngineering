@@ -35,6 +35,7 @@ public class PaymentController implements Initializable {
 
     private int totalPrice = 0;
     private int paidPrice = 0;
+    private int basketNumber;
 
     private Text totalPriceText;
     private Text paidPriceText;
@@ -50,9 +51,10 @@ public class PaymentController implements Initializable {
     }
 
     /* Todo 장바구니 번호 가져오도록 수정 */
-    public void PayProgress(Stage owner, int totalPrice) {
+    public void PayProgress(Stage owner, int basketNumber, int totalPrice) {
         this.totalPrice = totalPrice;
         this.owner = owner;
+        this.basketNumber = basketNumber;
         do {
             paymentStatus = false;
             paytype = "";
@@ -79,8 +81,9 @@ public class PaymentController implements Initializable {
         if (paidPrice == totalPrice) {
             /* Todo DB에 결제 내역 반영  */
             System.out.println("결제 성공!!");
-        }else{
+        } else {
             /* Todo 결제 취소 - 결제 번호를 돌려 놓음 */
+            DAOPayment.deletePayment(basketNumber);
         }
     }
 
@@ -187,7 +190,8 @@ public class PaymentController implements Initializable {
 
     private boolean PaymentMoney(int money) {
         paidPrice += money;
-        paymentInfo.add(new DAOPayment(0, money));
+//        paymentInfo.add(new DAOPayment(0, money));
+        new DAOPayment(DAOPayment.getPaymentSize(), money).insertPayment(basketNumber, money);
         return true;
         /* Todo 일단 paymentInfo에 저장을 해 두었다가 결제가 완료 될 떄 DB에 저장 */
         /* Todo 결제번호는 static 같은 걸로 구현하는게 좋지 않을까? 자동으로 하나씩 올라가도록 */

@@ -17,7 +17,7 @@ public class DAOPayment {
     private Type paymentType;
     private boolean paymentStatus;
     private String paymentDate;
-    private DAOShoppingBasket daoShoppingBasket;
+//    private DAOShoppingBasket daoShoppingBasket;
 
     public DAOPayment(int paymentNumber, int paymentAmount) {
         this.paymentNumber = paymentNumber;
@@ -25,7 +25,7 @@ public class DAOPayment {
         this.paymentType=Type.CASH;
         this.paymentStatus=false;
         this.paymentDate= new SimpleDateFormat("yyyy-MM-dd").format( new Date());
-        this.daoShoppingBasket=new DAOShoppingBasket();
+//        this.daoShoppingBasket=new DAOShoppingBasket();
     }
 
     public DAOPayment(int paymentNumber,int paymentAmount, Type type) {
@@ -34,7 +34,7 @@ public class DAOPayment {
         this.paymentType=type;
         this.paymentStatus=false;
         this.paymentDate= new SimpleDateFormat("yyyy-MM-dd").format( new Date());
-        this.daoShoppingBasket=new DAOShoppingBasket();
+//        this.daoShoppingBasket=new DAOShoppingBasket();
     }
 
     public DAOPayment(int paymentNumber, int paymentAmount, Type paymentType, String paymentDate,DAOShoppingBasket daoShoppingBasket) {
@@ -43,7 +43,7 @@ public class DAOPayment {
         this.paymentType = paymentType;
         this.paymentStatus = true;
         this.paymentDate = paymentDate;
-        this.daoShoppingBasket=daoShoppingBasket;
+//        this.daoShoppingBasket=daoShoppingBasket;
     }
 
     public int getPaymentNumber() {
@@ -138,6 +138,7 @@ public class DAOPayment {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
             pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
             pstmt.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,7 +154,7 @@ public class DAOPayment {
         }
     }
 
-    public void deletePayment(int shoppingBasketNumber){
+    public static void deletePayment(int shoppingBasketNumber){
         Connection conn = null;
         PreparedStatement pstmt = null;
         String query = String.format("DELETE FROM payment WHERE shopping_basket_number=%d",shoppingBasketNumber);
@@ -161,6 +162,7 @@ public class DAOPayment {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
             pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
             pstmt.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -181,14 +183,14 @@ public class DAOPayment {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM payment";
+        String query = "SELECT AUTO_INCREMENT FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'pos' AND   TABLE_NAME   = 'payment'";
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             rs.last();
-            size=rs.getRow();
+            size = rs.getInt("AUTO_INCREMENT");
             rs.close();
             pstmt.close();
         } catch (Exception e) {
@@ -209,4 +211,5 @@ public class DAOPayment {
         }
         return size;
     }
+
 }

@@ -168,7 +168,7 @@ public class ShoppingBasketController implements Initializable {
     private void logoutButtonAction(ActionEvent event) {
         System.out.println("logoutBtn");
         LogoutController logoutController = new LogoutController();
-        if(logoutController.showLogoutDialog()){
+        if (logoutController.showLogoutDialog()) {
             shoppingBasket.deleteBasket();
             System.exit(0);
         }
@@ -200,7 +200,7 @@ public class ShoppingBasketController implements Initializable {
         System.out.println("payBtn");
 
         PaymentController paymentCont = new PaymentController();
-        paymentCont.PayProgress((Stage) payBtn.getScene().getWindow(), getTotalPrice());
+        paymentCont.PayProgress((Stage) payBtn.getScene().getWindow(), shoppingBasket.getShoppingBasketNumber(), getTotalPrice());
     }
 
     @FXML
@@ -215,7 +215,7 @@ public class ShoppingBasketController implements Initializable {
 //            basketList.getItems().set(index, modifyModel);
             TableRowDataModel selectedModel = basketList.getItems().get(index);
             String name = selectedModel.itemName.getValue();
-            basketList.setItems(convertHistoryArrayListToObservableList(shoppingBasket.updateHistory(shoppingBasket.getShoppingBasketNumber(),name,Integer.parseInt(temp))));
+            basketList.setItems(convertHistoryArrayListToObservableList(shoppingBasket.updateHistory(shoppingBasket.getShoppingBasketNumber(), name, Integer.parseInt(temp))));
             amountTF.clear();
         }
     }
