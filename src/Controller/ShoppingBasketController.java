@@ -181,13 +181,18 @@ public class ShoppingBasketController implements Initializable {
         int index = basketList.getSelectionModel().getSelectedIndex();
 //        if (!tempList.isEmpty() && index >= 0)
 //            tempList.remove(index);
+        TableRowDataModel selectedModel = basketList.getItems().get(index);
+        String name = selectedModel.itemName.getValue();
+        basketList.setItems(convertHistoryArrayListToObservableList(shoppingBasket.deleteHistory(shoppingBasket.getShoppingBasketNumber(), name)));
     }
 
     @FXML
     private void allDelButtonAction(ActionEvent event) {
         System.out.println("allDelBtn");
 //        tempList.clear();
-        refreshBasketList();
+//        refreshBasketList();
+        basketList.setItems(convertHistoryArrayListToObservableList(shoppingBasket.deleteHistory(shoppingBasket.getShoppingBasketNumber())));
+
     }
 
     @FXML
@@ -204,10 +209,13 @@ public class ShoppingBasketController implements Initializable {
         int index = basketList.getSelectionModel().getSelectedIndex();
         String temp = amountTF.getText();
         if (!"".equals(temp) && temp.matches("^[0-9]*$") && index >= 0) {
-            TableRowDataModel modifyModel = basketList.getItems().get(index);
-            IntegerProperty modify = new SimpleIntegerProperty(Integer.parseInt(temp));
-            modifyModel.amount = modify;
-            basketList.getItems().set(index, modifyModel);
+//            TableRowDataModel modifyModel = basketList.getItems().get(index);
+//            IntegerProperty modify = new SimpleIntegerProperty(Integer.parseInt(temp));
+//            modifyModel.amount = modify;
+//            basketList.getItems().set(index, modifyModel);
+            TableRowDataModel selectedModel = basketList.getItems().get(index);
+            String name = selectedModel.itemName.getValue();
+            basketList.setItems(convertHistoryArrayListToObservableList(shoppingBasket.updateHistory(shoppingBasket.getShoppingBasketNumber(),name,Integer.parseInt(temp))));
             amountTF.clear();
         }
     }
