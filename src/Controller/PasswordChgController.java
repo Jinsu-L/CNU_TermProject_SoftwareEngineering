@@ -73,11 +73,15 @@ public class PasswordChgController implements Initializable {
                     String original = passwordTextField.getText();
                     String newPassword = chgPasswordTextField.getText();
                     String Confirm = chgPasswordConfirmTextField.getText();
-                    if(original.equals(DAOEnvironment.getPassword())){
-                        if(newPassword.equals(Confirm)){
+                    if (original.equals(DAOEnvironment.getPassword())) {
+                        if (newPassword.equals(Confirm)) {
                             DAOEnvironment.setPassword(newPassword);
                             return false;
+                        }else{
+                            alert("메시지","비밀번호 확인 불일치");
                         }
+                    } else {
+                        alert("메시지","현재비밀번호 불일치");
                     }
                     return true;
                 }
@@ -89,5 +93,14 @@ public class PasswordChgController implements Initializable {
             e.printStackTrace();
         }
         return dialog;
+    }
+
+    public void alert(String title, String body) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(body);
+
+        alert.showAndWait();
     }
 }

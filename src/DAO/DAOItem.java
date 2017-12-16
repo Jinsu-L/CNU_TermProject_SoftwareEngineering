@@ -288,7 +288,8 @@ public class DAOItem {
     }
 
     //상품 수정 요청
-    public void updateItem(String itemName, String newItemName, int newItemPrice, String newCategoryName) {
+    public boolean updateItem(String itemName, String newItemName, int newItemPrice, String newCategoryName) {
+        boolean ret = true;
         DAOItem result = new DAOItem(itemName);
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -302,6 +303,7 @@ public class DAOItem {
             pstmt.close();
         } catch (Exception e) {
             e.printStackTrace();
+            ret = false;
         } finally {
             if (pstmt != null) try {
                 pstmt.close();
@@ -312,6 +314,7 @@ public class DAOItem {
             } catch (Exception e) {
             }
         }
+        return ret;
     }
 
     public static int getItemSize() {

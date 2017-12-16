@@ -70,11 +70,16 @@ public class ItemManagementController implements Initializable {
     private void registerButtonAction(ActionEvent event) {
         System.out.println("register");
         String name = ItemNameTF.getText();
-        int price = Integer.parseInt(PriceBox.getText());
-        String category = (String) ChoiceCategory.getSelectionModel().getSelectedItem();
-        if (!new DAOItem().insertItem(name, price, category)) {
-            alert("상품명 중복", "상품명 중복");
+        try {
+            int price = Integer.parseInt(PriceBox.getText());
+            String category = (String) ChoiceCategory.getSelectionModel().getSelectedItem();
+            if (!new DAOItem().insertItem(name, price, category)) {
+                alert("상품명 중복", "상품명 중복");
+            }
+        }catch (NumberFormatException n){
+            alert("에러메시지","수량 문자");
         }
+
         loadItemList();
     }
 
@@ -83,9 +88,15 @@ public class ItemManagementController implements Initializable {
         System.out.println("modify");
         String oldname = itemListView.getSelectionModel().getSelectedItem().itemName.getValue();
         String newname = ItemNameTF.getText();
-        int price = Integer.parseInt(PriceBox.getText());
-        String category = (String) ChoiceCategory.getSelectionModel().getSelectedItem();
-        new DAOItem().updateItem(oldname, newname, price, category);
+        try {
+            int price = Integer.parseInt(PriceBox.getText());
+            String category = (String) ChoiceCategory.getSelectionModel().getSelectedItem();
+            if (!new DAOItem().updateItem(oldname, newname, price, category)) {
+                alert("상품명 중복", "상품명 중복");
+            }
+        }catch (NumberFormatException n){
+            alert("에러메시지","상품 가격 오류");
+        }
         loadItemList();
     }
 
