@@ -5,39 +5,39 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DAOCategory {
-    private int categoryID;
+    private int categoryNumber;
     private String categoryName;
 
     public DAOCategory() {
     }
 
     public DAOCategory(String categoryName) {
-        this.categoryID = getCategoryID(categoryName);
+        this.categoryNumber = getCategoryNumber(categoryName);
         this.categoryName=categoryName;
     }
 
-    public DAOCategory(int categoryID, String categoryName) {
-        this.categoryID = categoryID;
+    public DAOCategory(int categoryNumber, String categoryName) {
+        this.categoryNumber = categoryNumber;
         this.categoryName = categoryName;
     }
 
-    public int getCategoryID() {
-        return categoryID;
+    public int getCategoryNumber() {
+        return categoryNumber;
     }
 
-    public int getCategoryID(String categoryName){
+    public int getCategoryNumber(String categoryName){
         int result=1;
         Connection conn = null;
         PreparedStatement pstmt=null;
         ResultSet rs =null;
-        String query = String.format("SELECT categoryID FROM category WHERE category_name='%s'",categoryName);
+        String query = String.format("SELECT * FROM category WHERE category_name='%s'",categoryName);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             rs.next();
-            result=rs.getInt(1);
+            result=rs.getInt("categoryID");
             rs.close();
             pstmt.close();
         } catch (Exception e) {
@@ -50,20 +50,20 @@ public class DAOCategory {
         return result;
     }
 
-    public void setCategoryID(int categoryID) {
-        this.categoryID = categoryID;
+    public void setCategoryNumber(int categoryNumber) {
+        this.categoryNumber = categoryNumber;
     }
 
     public String getCategoryName() {
         return categoryName;
     }
 
-    public String getCategoryName(int categoryID){
+    public String getCategoryName(int categoryNumber){
         String result="";
         Connection conn = null;
         PreparedStatement pstmt=null;
         ResultSet rs =null;
-        String query = String.format("SELECT category_name FROM category WHERE categoryID=%d",categoryID);
+        String query = String.format("SELECT category_name FROM category WHERE category_number=%d",categoryNumber);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -93,16 +93,16 @@ public class DAOCategory {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM item";
+        String query = "SELECT * FROM category";
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                int rsCategoryID=rs.getInt("categoryID");
+                int rsCategoryNumber=rs.getInt("category_number");
                 String rsCategoryName=rs.getString("category_name");
-                result.add(new DAOCategory(rsCategoryID,rsCategoryName));
+                result.add(new DAOCategory(rsCategoryNumber,rsCategoryName));
             }
             rs.close();
             pstmt.close();

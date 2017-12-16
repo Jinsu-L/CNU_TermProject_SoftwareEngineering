@@ -1,5 +1,6 @@
 package Controller;
 
+import DAO.DAOEnvironment;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -83,7 +84,7 @@ public class LoginController implements Initializable {
 
     /* Todo 여기서 Password 확인해서 로그인 처리 해야 */
     private boolean checkPassword(String input) {
-        String password = "admin";
+        String password = DAOEnvironment.getPassword();
         return input.equals(password);
     }
 }

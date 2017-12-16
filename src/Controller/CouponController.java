@@ -124,6 +124,6 @@ public class CouponController implements Initializable {
 
     /* Todo coupon 발급 기능 */
     private String getCouponNumber(int inputPrice) {
-        return new DAOCoupon().createCoupon(inputPrice);
+        return new DAOCoupon().createCoupon(inputPrice).getCouponNumber();
     }
 }

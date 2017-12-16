@@ -19,9 +19,7 @@ public class DAOPayment {
     private String paymentDate;
     private DAOShoppingBasket daoShoppingBasket;
 
-    static private int paymentCount=0;
-
-    public DAOPayment(int paymentNumber,int paymentAmount) {
+    public DAOPayment(int paymentNumber, int paymentAmount) {
         this.paymentNumber = paymentNumber;
         this.paymentAmount=paymentAmount;
         this.paymentType=Type.CASH;
@@ -89,6 +87,7 @@ public class DAOPayment {
     }
 
     //매출 현황 조회
+    //Todo 현재는 payment 리스트 반환인데 시퀀스에는 일자별 금액반환 -> ArrayList<Integer>로 하고 금액 계산해서 넘겨야할듯
     public static ArrayList<DAOPayment> selectPayment(String start,String end){
         ArrayList<DAOPayment> result=new ArrayList<>();
         Connection conn = null;
@@ -134,7 +133,30 @@ public class DAOPayment {
     public void insertPayment(int shoppingBasketNumber, int paymentAmount){
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query = String.format("INSERT INTO payment VALUES (%d,%d,'%s','%s',%d)",paymentCount++,paymentAmount,Type.CASH.toString().toLowerCase(),new SimpleDateFormat("yyyy-MM-dd").format(new Date()),shoppingBasketNumber);
+        String query = String.format("INSERT INTO payment VALUES (%d,%d,'%s','%s',%d)",paymentNumber,paymentAmount,Type.CASH.toString().toLowerCase(),new SimpleDateFormat("yyyy-MM-dd").format(new Date()),shoppingBasketNumber);
+        try {
+            ConnectionManager cm = new ConnectionManager();
+            conn = cm.getConnection();
+            pstmt = conn.prepareStatement(query);
+            pstmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (Exception e) {
+            }
+            if (conn != null) try {
+                conn.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    public void deletePayment(int shoppingBasketNumber){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String query = String.format("DELETE FROM payment WHERE shopping_basket_number=%d",shoppingBasketNumber);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();

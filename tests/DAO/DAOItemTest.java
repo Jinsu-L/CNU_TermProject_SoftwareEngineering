@@ -22,4 +22,9 @@ public class DAOItemTest {
         daoItem.deleteItem("testitem");
     }
 
+    @Test
+    public void getCategoryItemList(){
+        DAOItem daoItem=new DAOItem();
+        daoItem.getItems("사이드");
+    }
 }

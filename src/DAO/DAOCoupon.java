@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DAOCoupon {
-
     private String couponNumber;
     private int couponAmount;
 
@@ -69,9 +68,8 @@ public class DAOCoupon {
         this.couponAmount = couponAmount;
     }
 
-    public String createCoupon(int couponAmount){
-        //쿠폰 생성 생각 해야함
-
+    //시퀀스 상 반환이 쿠폰번호, 쿠폰금액 이라 객체 반환 처리
+    public DAOCoupon createCoupon(int couponAmount){
         String couponNumber=new SimpleDateFormat("MMddhhmmss").format(new Date());
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -80,6 +78,7 @@ public class DAOCoupon {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
             pstmt = conn.prepareStatement(query);
+            pstmt.executeUpdate();
             pstmt.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,7 +92,9 @@ public class DAOCoupon {
             } catch (Exception e) {
             }
         }
-        return couponNumber;
+        this.setCouponNumber(couponNumber);
+        this.setCouponAmount(couponAmount);
+        return this;
     }
 
     public boolean useCoupon(String couponNumber,int useAmount) {
