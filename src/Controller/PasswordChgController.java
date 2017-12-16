@@ -1,5 +1,6 @@
 package Controller;
 
+import DAO.DAOEnvironment;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -69,9 +70,15 @@ public class PasswordChgController implements Initializable {
             // Result converter for dialog
             dialog.setResultConverter(param -> {
                 if (param == buttonTypeOk) {
-                    System.out.println(passwordTextField.getText());
-                    System.out.println(chgPasswordTextField.getText());
-                    System.out.println(chgPasswordConfirmTextField.getText());
+                    String original = passwordTextField.getText();
+                    String newPassword = chgPasswordTextField.getText();
+                    String Confirm = chgPasswordConfirmTextField.getText();
+                    if(original.equals(DAOEnvironment.getPassword())){
+                        if(newPassword.equals(Confirm)){
+                            DAOEnvironment.setPassword(newPassword);
+                            return false;
+                        }
+                    }
                     return true;
                 }
                 return false;

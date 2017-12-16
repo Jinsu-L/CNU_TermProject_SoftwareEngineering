@@ -39,13 +39,13 @@ public class DAOEnvironment {
         return password;
     }
 
-    public static boolean setPassword(String password,String newPassword, String newPasswordCheck){
-        if(!password.equals(getPassword()) || newPassword.length()>10 || !newPassword.equals(newPasswordCheck)){
+    public static boolean setPassword(String newPassword){
+        if(newPassword.length()>10){
             return false;
         }
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query = String.format("UPDATE FROM environment password='%s' WHERE user_number=1",password);
+        String query = String.format("UPDATE environment SET password='%s' WHERE user_number=1",newPassword);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
