@@ -66,11 +66,11 @@ public class SalesStatusController implements Initializable {
         LocalDate endDate = end.getValue();
         System.out.println(startDate.toString());
         System.out.println(endDate.toString());
-//        ArrayList PaymentList = DAOPayment.selectPayment(startDate.toString(), endDate.toString());
-        ArrayList<Pair<String, Integer>> PaymentList = new ArrayList();
-        PaymentList.add(new Pair<>("2017-12-14", 10000));
-        PaymentList.add(new Pair<>("2017-12-15", 20000));
-        PaymentList.add(new Pair<>("2017-12-13", 17500));
+        ArrayList<Pair<String, Integer>> PaymentList = DAOPayment.selectPayment(startDate.toString(), endDate.toString());
+//        ArrayList<Pair<String, Integer>> PaymentList = new ArrayList();
+//        PaymentList.add(new Pair<>("2017-12-14", 10000));
+//        PaymentList.add(new Pair<>("2017-12-15", 20000));
+//        PaymentList.add(new Pair<>("2017-12-13", 17500));
         statusView.setItems(convertPaymentArrayListToObservableList(PaymentList));
     }
 

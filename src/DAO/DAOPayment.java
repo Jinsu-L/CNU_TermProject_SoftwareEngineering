@@ -1,6 +1,7 @@
 package DAO;
 
 import DBCP.ConnectionManager;
+import javafx.util.Pair;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -21,23 +22,23 @@ public class DAOPayment {
 
     public DAOPayment(int paymentNumber, int paymentAmount) {
         this.paymentNumber = paymentNumber;
-        this.paymentAmount=paymentAmount;
-        this.paymentType=Type.CASH;
-        this.paymentStatus=false;
-        this.paymentDate= new SimpleDateFormat("yyyy-MM-dd").format( new Date());
+        this.paymentAmount = paymentAmount;
+        this.paymentType = Type.CASH;
+        this.paymentStatus = false;
+        this.paymentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 //        this.daoShoppingBasket=new DAOShoppingBasket();
     }
 
-    public DAOPayment(int paymentNumber,int paymentAmount, Type type) {
+    public DAOPayment(int paymentNumber, int paymentAmount, Type type) {
         this.paymentNumber = paymentNumber;
-        this.paymentAmount=paymentAmount;
-        this.paymentType=type;
-        this.paymentStatus=false;
-        this.paymentDate= new SimpleDateFormat("yyyy-MM-dd").format( new Date());
+        this.paymentAmount = paymentAmount;
+        this.paymentType = type;
+        this.paymentStatus = false;
+        this.paymentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 //        this.daoShoppingBasket=new DAOShoppingBasket();
     }
 
-    public DAOPayment(int paymentNumber, int paymentAmount, Type paymentType, String paymentDate,DAOShoppingBasket daoShoppingBasket) {
+    public DAOPayment(int paymentNumber, int paymentAmount, Type paymentType, String paymentDate, DAOShoppingBasket daoShoppingBasket) {
         this.paymentNumber = paymentNumber;
         this.paymentAmount = paymentAmount;
         this.paymentType = paymentType;
@@ -88,25 +89,27 @@ public class DAOPayment {
 
     //매출 현황 조회
     //Todo 현재는 payment 리스트 반환인데 시퀀스에는 일자별 금액반환 -> ArrayList<Integer>로 하고 금액 계산해서 넘겨야할듯
-    public static ArrayList<DAOPayment> selectPayment(String start,String end){
-        ArrayList<DAOPayment> result=new ArrayList<>();
+    public static ArrayList<Pair<String, Integer>> selectPayment(String start, String end) {
+        ArrayList<Pair<String, Integer>> result = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String query=String.format("SELECT * FROM payment WHERE payment_date BETWEEN '%s' AND '%s'",start,end);
+        String query = String.format("SELECT payment_date, sum(Payment_amount) as Payment_amount FROM payment WHERE payment_date BETWEEN '%s' AND '%s' GROUP BY payment_date", start, end);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                int rsPaymentNumber=rs.getInt("payment_number");
-                int rsPaymentAmount=rs.getInt("payment_amount");
-                Type rsPaymentType=Type.valueOf(rs.getString("payment_type"));
-                String rsDate=new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("payment_date"));
-                int rsShoppingBasketNumber=rs.getInt("shopping_basket_number");
-                DAOShoppingBasket rsdaoShoppingBasket=new DAOShoppingBasket(rsShoppingBasketNumber);
-                result.add(new DAOPayment(rsPaymentNumber,rsPaymentAmount,rsPaymentType,rsDate,rsdaoShoppingBasket));
+//                int rsPaymentNumber=rs.getInt("payment_number");
+//                int rsPaymentAmount=rs.getInt("payment_amount");
+//                Type rsPaymentType=Type.valueOf(rs.getString("payment_type"));
+//                String rsDate=new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("payment_date"));
+//                int rsShoppingBasketNumber=rs.getInt("shopping_basket_number");
+//                DAOShoppingBasket rsdaoShoppingBasket=new DAOShoppingBasket(rsShoppingBasketNumber);
+                int rsPaymentAmount = rs.getInt("Payment_amount");
+                String rsDate = new SimpleDateFormat("yyyy-MM-dd").format(rs.getDate("payment_date"));
+                result.add(new Pair<>(rsDate, rsPaymentAmount));
             }
             rs.close();
             pstmt.close();
@@ -130,10 +133,10 @@ public class DAOPayment {
     }
 
     //현금 결제
-    public void insertPayment(int shoppingBasketNumber, int paymentAmount){
+    public void insertPayment(int shoppingBasketNumber, int paymentAmount) {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query = String.format("INSERT INTO payment VALUES (%d,%d,'%s','%s',%d)",paymentNumber,paymentAmount,Type.CASH.toString().toLowerCase(),new SimpleDateFormat("yyyy-MM-dd").format(new Date()),shoppingBasketNumber);
+        String query = String.format("INSERT INTO payment VALUES (%d,%d,'%s','%s',%d)", paymentNumber, paymentAmount, Type.CASH.toString().toLowerCase(), new SimpleDateFormat("yyyy-MM-dd").format(new Date()), shoppingBasketNumber);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -154,10 +157,10 @@ public class DAOPayment {
         }
     }
 
-    public static void deletePayment(int shoppingBasketNumber){
+    public static void deletePayment(int shoppingBasketNumber) {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query = String.format("DELETE FROM payment WHERE shopping_basket_number=%d",shoppingBasketNumber);
+        String query = String.format("DELETE FROM payment WHERE shopping_basket_number=%d", shoppingBasketNumber);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
@@ -178,8 +181,8 @@ public class DAOPayment {
         }
     }
 
-    public static int getPaymentSize(){
-        int size=-1;
+    public static int getPaymentSize() {
+        int size = -1;
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;

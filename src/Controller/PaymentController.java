@@ -51,7 +51,7 @@ public class PaymentController implements Initializable {
     }
 
     /* Todo 장바구니 번호 가져오도록 수정 */
-    public void PayProgress(Stage owner, int basketNumber, int totalPrice) {
+    public boolean PayProgress(Stage owner, int basketNumber, int totalPrice) {
         this.totalPrice = totalPrice;
         this.owner = owner;
         this.basketNumber = basketNumber;
@@ -81,9 +81,11 @@ public class PaymentController implements Initializable {
         if (paidPrice == totalPrice) {
             /* Todo DB에 결제 내역 반영  */
             System.out.println("결제 성공!!");
+            return true;
         } else {
             /* Todo 결제 취소 - 결제 번호를 돌려 놓음 */
             DAOPayment.deletePayment(basketNumber);
+            return false;
         }
     }
 

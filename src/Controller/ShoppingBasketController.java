@@ -200,7 +200,10 @@ public class ShoppingBasketController implements Initializable {
         System.out.println("payBtn");
 
         PaymentController paymentCont = new PaymentController();
-        paymentCont.PayProgress((Stage) payBtn.getScene().getWindow(), shoppingBasket.getShoppingBasketNumber(), getTotalPrice());
+        if(paymentCont.PayProgress((Stage) payBtn.getScene().getWindow(), shoppingBasket.getShoppingBasketNumber(), getTotalPrice())) {
+            shoppingBasket = new DAOShoppingBasket();
+            refreshBasketList();
+        }
     }
 
     @FXML
