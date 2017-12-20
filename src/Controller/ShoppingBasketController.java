@@ -214,7 +214,7 @@ public class ShoppingBasketController implements Initializable {
         String temp = amountTF.getText();
         if (!"".equals(temp) && temp.matches("^[0-9]*$") && index >= 0) {
             if(Integer.parseInt(temp) <= 0) {
-                alert("에러메시지", "입력문자 0");
+                alert("에러메시지", "수량 0");
                 return;
             }
 //            TableRowDataModel modifyModel = basketList.getItems().get(index);
@@ -228,7 +228,7 @@ public class ShoppingBasketController implements Initializable {
         } else if (index < 0) {
             alert("에러메시지", "수정 상품 미선택!");
         } else {
-            alert("에러메시지", "수량이 문자!");
+            alert("에러메시지", "수량 문자");
         }
     }
 
