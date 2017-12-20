@@ -178,10 +178,21 @@ public class PaymentController implements Initializable {
         /* Todo 단순 취소, 결제 성공, 결제 금액 이상 나누어서 처리할 수 있어야함 */
         dialog.setResultConverter(param -> {
             if (param != closeButton) {
-                if(Integer.parseInt(pay.getText()) > (totalPrice - paidPrice))
+                int money = 0;
+                try {
+                    money = Integer.parseInt(pay.getText());
+                }catch(NumberFormatException e){
+                    alert("에러메시지","숫자 외 문자 입력");
                     return "결제 금액 이상";
+                }
+                if(money == 0){
+                    alert("에러메시지", "숫자 0 입력");
+                    return "결제 금액 이상";
+                }
+                if(money > (totalPrice - paidPrice))
+                    money = totalPrice - paidPrice;
 
-                if (!PaymentMoney(Integer.parseInt(pay.getText()))) {
+                if (!PaymentMoney(money)) {
                     return "결제 금액 이상";
                 }
                 if (paidPrice == totalPrice)
@@ -229,10 +240,21 @@ public class PaymentController implements Initializable {
         /* Todo 단순 취소, 결제 성공, 결제 금액 이상 나누어서 처리할 수 있어야함 */
         dialog.setResultConverter(param -> {
             if (param != closeButton) {
-                if(Integer.parseInt(pay.getText()) > (totalPrice - paidPrice))
+                int money = 0;
+                try {
+                    money = Integer.parseInt(pay.getText());
+                }catch(NumberFormatException e){
+                    alert("에러메시지","숫자 외 문자 입력");
                     return "결제 금액 이상";
+                }
+                if(money == 0){
+                    alert("에러메시지", "숫자 0 입력");
+                    return "결제 금액 이상";
+                }
+                if(money > (totalPrice - paidPrice))
+                    money = totalPrice - paidPrice;
 
-                if (!PaymentCard(Integer.parseInt(pay.getText()), input.getText()))
+                if (!PaymentCard(money, input.getText()))
                     return "결제 금액 이상";
                 if (paidPrice == totalPrice)
                     paymentStatus = false;
@@ -279,10 +301,21 @@ public class PaymentController implements Initializable {
         /* Todo 단순 취소, 결제 성공, 결제 금액 이상 나누어서 처리할 수 있어야함 */
         dialog.setResultConverter(param -> {
             if (param != closeButton) {
-                if(Integer.parseInt(pay.getText()) > (totalPrice - paidPrice))
+                int money = 0;
+                try {
+                    money = Integer.parseInt(pay.getText());
+                }catch(NumberFormatException e){
+                    alert("에러메시지","숫자 외 문자 입력");
                     return "결제 금액 이상";
+                }
+                if(money == 0){
+                    alert("에러메시지", "숫자 0 입력");
+                    return "결제 금액 이상";
+                }
+                if(money > (totalPrice - paidPrice))
+                    money = totalPrice - paidPrice;
 
-                if (!PaymentCoupon(Integer.parseInt(pay.getText()), input.getText()))
+                if (!PaymentCoupon(money, input.getText()))
                     return "결제 금액 이상";
                 if (paidPrice == totalPrice)
                     paymentStatus = false;
@@ -333,5 +366,14 @@ public class PaymentController implements Initializable {
         totalPriceText.setText(String.valueOf(totalPrice));
         paidPriceText.setText(String.valueOf(paidPrice));
         remindPriceText.setText(String.valueOf(totalPrice - paidPrice));
+    }
+
+    public void alert(String title, String body) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(body);
+
+        alert.showAndWait();
     }
 }
