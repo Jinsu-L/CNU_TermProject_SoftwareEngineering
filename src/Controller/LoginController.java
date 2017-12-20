@@ -36,7 +36,7 @@ public class LoginController implements Initializable {
                 if ((boolean) input.get())
                     pass = true;
                 else
-                    message = "비밀번호 재입력!!";
+                    message = "[비빌번호 틀림] 비밀번호 재입력!!";
             }
         }
     }
