@@ -152,4 +152,11 @@ INSERT INTO item (item_name, item_price, category_number) VALUES('성적', 9999,
 
 INSERT INTO environment(password) VALUES('admin');
 
+초기화
+DELETE FROM shopping_basket;
+DELETE FROM payment;
+ALTER TABLE shopping_basket AUTO_INCREMENT=1;
+ALTER TABLE shopping_history AUTO_INCREMENT=1;
+ALTER TABLE payment AUTO_INCREMENT=1;
+
 ```

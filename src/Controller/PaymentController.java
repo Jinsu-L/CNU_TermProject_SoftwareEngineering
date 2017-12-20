@@ -1,5 +1,7 @@
 package Controller;
 
+import DAO.DAOCouponPayment;
+import DAO.DAOCreditCardPayment;
 import DAO.DAOPayment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -193,8 +195,7 @@ public class PaymentController implements Initializable {
     private boolean PaymentMoney(int money) {
         paidPrice += money;
 //        paymentInfo.add(new DAOPayment(0, money));
-        new DAOPayment(DAOPayment.getPaymentSize(), money).insertPayment(basketNumber, money);
-        return true;
+        return new DAOPayment().insertPayment(basketNumber, money);
         /* Todo 일단 paymentInfo에 저장을 해 두었다가 결제가 완료 될 떄 DB에 저장 */
         /* Todo 결제번호는 static 같은 걸로 구현하는게 좋지 않을까? 자동으로 하나씩 올라가도록 */
         /* Todo 남은 금액보다 큰 경우 에러처리는 ?? */
@@ -237,8 +238,8 @@ public class PaymentController implements Initializable {
 
     private boolean PaymentCard(int money, String CardNumber) {
         paidPrice += money;
-        paymentInfo.add(new DAOPayment(0, money)); // 카드 버전으로 수정해야함
-        return true;
+        //paymentInfo.add(new DAOPayment(0, money)); // 카드 버전으로 수정해야함
+        return new DAOCreditCardPayment().insertPayment(basketNumber, CardNumber, money);
         /* Todo 일단 paymentInfo에 저장을 해 두었다가 결제가 완료 될 떄 DB에 저장 */
         /* Todo 결제번호는 static 같은 걸로 구현하는게 좋지 않을까? 자동으로 하나씩 올라가도록 */
         /* Todo 남은 금액보다 큰 경우 에러처리는 ?? */
@@ -281,8 +282,8 @@ public class PaymentController implements Initializable {
 
     private boolean PaymentCoupon(int money, String CouponNumber) {
         paidPrice += money;
-        paymentInfo.add(new DAOPayment(0, money)); // 쿠폰 버전으로 수정
-        return true;
+        //paymentInfo.add(new DAOPayment(0, money)); // 쿠폰 버전으로 수정
+        return new DAOCouponPayment().insertPayment(basketNumber, CouponNumber, money);
         /* Todo 일단 paymentInfo에 저장을 해 두었다가 결제가 완료 될 떄 DB에 저장 */
         /* Todo 결제번호는 static 같은 걸로 구현하는게 좋지 않을까? 자동으로 하나씩 올라가도록 */
         /* Todo 남은 금액보다 큰 경우 에러처리는 ?? */
