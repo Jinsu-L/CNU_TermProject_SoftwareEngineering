@@ -30,7 +30,7 @@ public class DAOCoupon {
         return couponAmount;
     }
 
-    public int getCouponAmount(String couponNumber){
+    public static int getCouponAmount(String couponNumber){
         int couponAmount=0;
         Connection conn = null;
         PreparedStatement pstmt = null;

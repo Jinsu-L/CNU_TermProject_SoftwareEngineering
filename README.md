@@ -73,7 +73,7 @@ CREATE TABLE category
 CREATE TABLE coupon_payment
 (
    payment_number       INTEGER NOT NULL,
-   coupon_number        CHAR(8) NULL,
+   coupon_number        CHAR(10) NULL,
    coupon_amount        INTEGER NULL,
    PRIMARY KEY (payment_number)
 );
@@ -81,7 +81,7 @@ CREATE TABLE coupon_payment
 CREATE TABLE item
 (
    item_number          INTEGER NOT NULL AUTO_INCREMENT,
-   item_name            VARCHAR(20) UNIQUE,
+   item_name            VARCHAR(20) UNIQUE,
    item_price           INTEGER NULL,
    category_number           INTEGER NOT NULL,
    PRIMARY  KEY(item_number)

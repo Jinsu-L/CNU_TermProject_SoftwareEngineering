@@ -48,14 +48,17 @@ public class DAOCouponPayment extends DAOPayment {
     public boolean insertPayment(int shoppingBasketNumber, String couponNumber, int paymentAmount) {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        if (daoCoupon.getCouponAmount(couponNumber) > paymentAmount) {
+        if (DAOCoupon.getCouponAmount(couponNumber) >= paymentAmount) {
             String query = String.format("INSERT INTO payment (payment_amount, payment_type, payment_date, shopping_basket_number) VALUES (%d,'%s','%s',%d)", paymentAmount, Type.COUPON.toString().toLowerCase(), new SimpleDateFormat("yyyy-MM-dd").format(new Date()), shoppingBasketNumber);
             try {
                 ConnectionManager cm = new ConnectionManager();
                 conn = cm.getConnection();
                 pstmt = conn.prepareStatement(query);
                 pstmt.executeUpdate();
-                query = String.format("INSERT INTO coupon_payment VALUES (%d,'%s', %d)", paymentNumber, couponNumber, paymentAmount);
+                query = String.format("INSERT INTO coupon_payment VALUES (%d,'%s', %d)", getPaymentSize(), couponNumber, paymentAmount);
+                pstmt = conn.prepareStatement(query);
+                pstmt.executeUpdate();
+                query = String.format("UPDATE coupon SET coupon_amount='%d' WHERE coupon_number='%s'", DAOCoupon.getCouponAmount(couponNumber)-paymentAmount, couponNumber);
                 pstmt = conn.prepareStatement(query);
                 pstmt.executeUpdate();
                 pstmt.close();
