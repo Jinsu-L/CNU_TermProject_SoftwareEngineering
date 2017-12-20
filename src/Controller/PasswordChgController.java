@@ -78,10 +78,10 @@ public class PasswordChgController implements Initializable {
                             DAOEnvironment.setPassword(newPassword);
                             return false;
                         }else{
-                            alert("메시지","기존 비밀번호 틀림");
+                            alert("메시지","변경할 비밀번호 틀림");
                         }
                     } else {
-                        alert("메시지","변경할 비밀번호 틀림");
+                        alert("메시지","기존 비밀번호 틀림");
                     }
                     return true;
                 }
