@@ -1,5 +1,6 @@
 package Controller;
 
+import DAO.DAOCategory;
 import DAO.DAOItem;
 
 import DAO.DAOShoppingBasket;
@@ -260,6 +261,7 @@ public class ShoppingBasketController implements Initializable {
     private int gap = 15;
 
     public void refreshTab() {
+        ArrayList categories = (new DAOCategory()).getCategories();
         settingTab(TabSet, "세트");
         settingTab(TabSingle, "단품");
         settingTab(TabDrink, "음료수");
