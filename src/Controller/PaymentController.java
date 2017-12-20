@@ -178,8 +178,12 @@ public class PaymentController implements Initializable {
         /* Todo 단순 취소, 결제 성공, 결제 금액 이상 나누어서 처리할 수 있어야함 */
         dialog.setResultConverter(param -> {
             if (param != closeButton) {
-                if (!PaymentMoney(Integer.parseInt(pay.getText())))
+                if(Integer.parseInt(pay.getText()) > (totalPrice - paidPrice))
                     return "결제 금액 이상";
+
+                if (!PaymentMoney(Integer.parseInt(pay.getText()))) {
+                    return "결제 금액 이상";
+                }
                 if (paidPrice == totalPrice)
                     paymentStatus = false;
                 return "성공";
@@ -225,6 +229,9 @@ public class PaymentController implements Initializable {
         /* Todo 단순 취소, 결제 성공, 결제 금액 이상 나누어서 처리할 수 있어야함 */
         dialog.setResultConverter(param -> {
             if (param != closeButton) {
+                if(Integer.parseInt(pay.getText()) > (totalPrice - paidPrice))
+                    return "결제 금액 이상";
+
                 if (!PaymentCard(Integer.parseInt(pay.getText()), input.getText()))
                     return "결제 금액 이상";
                 if (paidPrice == totalPrice)
@@ -272,6 +279,9 @@ public class PaymentController implements Initializable {
         /* Todo 단순 취소, 결제 성공, 결제 금액 이상 나누어서 처리할 수 있어야함 */
         dialog.setResultConverter(param -> {
             if (param != closeButton) {
+                if(Integer.parseInt(pay.getText()) > (totalPrice - paidPrice))
+                    return "결제 금액 이상";
+
                 if (!PaymentCoupon(Integer.parseInt(pay.getText()), input.getText()))
                     return "결제 금액 이상";
                 if (paidPrice == totalPrice)

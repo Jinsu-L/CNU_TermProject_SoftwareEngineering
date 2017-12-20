@@ -36,6 +36,7 @@ public class DAOPayment {
     public DAOPayment(int paymentNumber, int paymentAmount, Type type) {
         this.paymentNumber = paymentNumber;
         this.paymentAmount = paymentAmount;
+
         this.paymentType = type;
         this.paymentStatus = false;
         this.paymentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
