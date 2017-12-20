@@ -133,7 +133,7 @@ public class DAOPayment {
     }
 
     //현금 결제
-    public void insertPayment(int shoppingBasketNumber, int paymentAmount) {
+    public boolean insertPayment(int shoppingBasketNumber, int paymentAmount) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         String query = String.format("INSERT INTO payment VALUES (%d,%d,'%s','%s',%d)", paymentNumber, paymentAmount, Type.CASH.toString().toLowerCase(), new SimpleDateFormat("yyyy-MM-dd").format(new Date()), shoppingBasketNumber);
@@ -143,8 +143,10 @@ public class DAOPayment {
             pstmt = conn.prepareStatement(query);
             pstmt.executeUpdate();
             pstmt.close();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         } finally {
             if (pstmt != null) try {
                 pstmt.close();
