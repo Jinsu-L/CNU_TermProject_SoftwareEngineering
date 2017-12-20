@@ -19,11 +19,13 @@ import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -36,7 +38,7 @@ public class SalesStatusController implements Initializable {
     @FXML
     private TableColumn<TableRowDataModel, String> date;
     @FXML
-    private TableColumn<TableRowDataModel, Integer> daytotal;
+    private TableColumn<TableRowDataModel, String> daytotal;
     @FXML
     private Button backBtn;
     @FXML
@@ -96,7 +98,7 @@ public class SalesStatusController implements Initializable {
         backBtn.setOnAction(this::backButtonAction);
         searchBtn.setOnAction(this::searchButtonAction);
         date.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
-        daytotal.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+        daytotal.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
         end.setValue(LocalDate.now());
         LocalDate date = LocalDate.now().minusMonths(1);
         start.setValue(date);
@@ -105,9 +107,17 @@ public class SalesStatusController implements Initializable {
     public ObservableList<TableRowDataModel> convertPaymentArrayListToObservableList(ArrayList Payments) {
         ObservableList<TableRowDataModel> tempList = FXCollections.observableArrayList();
         for (Object dateAndPrice : Payments) {
-            SimpleStringProperty date = new SimpleStringProperty((String) ((Pair) dateAndPrice).getKey());
+            String oldstring = (String) ((Pair) dateAndPrice).getKey();
+            try {
+                Date old = new SimpleDateFormat("yyyy-MM-dd").parse(oldstring);
+                String newstring = new SimpleDateFormat("yyyy년MM월dd일").format(old);
+
+            SimpleStringProperty date = new SimpleStringProperty(newstring);
             int price = (int) ((Pair) dateAndPrice).getValue();
-            tempList.add(new TableRowDataModel(date, new SimpleIntegerProperty(price)));
+            tempList.add(new TableRowDataModel(date, new SimpleStringProperty(price + "원")));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
         return tempList;
     }
@@ -115,9 +125,9 @@ public class SalesStatusController implements Initializable {
 
     public class TableRowDataModel {
         private StringProperty date;
-        private IntegerProperty price;
+        private StringProperty price;
 
-        public TableRowDataModel(StringProperty date, IntegerProperty price) {
+        public TableRowDataModel(StringProperty date, StringProperty price) {
             this.date = date;
             this.price = price;
         }
@@ -126,7 +136,7 @@ public class SalesStatusController implements Initializable {
             return date;
         }
 
-        public IntegerProperty priceProperty() {
+        public StringProperty priceProperty() {
             return price;
         }
     }

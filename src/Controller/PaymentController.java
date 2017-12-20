@@ -109,7 +109,7 @@ public class PaymentController implements Initializable {
             paidPriceText = (Text) grid.lookup("#PaidPrice");
             remindPriceText = (Text) grid.lookup("#RemindPrice");
             updateText();
-            ButtonType closeButton = ButtonType.CLOSE;
+            ButtonType closeButton = new ButtonType("취소", ButtonBar.ButtonData.CANCEL_CLOSE);
             dialog.getDialogPane().getButtonTypes().addAll(closeButton);
 
             cash = (Button) grid.lookup("#CashBtn");
@@ -170,7 +170,7 @@ public class PaymentController implements Initializable {
         Text remind = (Text) grid.lookup("#remind");
         remind.setText(String.valueOf(totalPrice - paidPrice));
 
-        ButtonType closeButton = ButtonType.CLOSE;
+        ButtonType closeButton = new ButtonType("취소", ButtonBar.ButtonData.CANCEL_CLOSE);
         ButtonType OkButton = new ButtonType("결제", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(closeButton, OkButton);
 
@@ -230,9 +230,10 @@ public class PaymentController implements Initializable {
         label.setText("카드 번호");
         label.setVisible(true);
         TextField input = (TextField) grid.lookup("#input");
+        input.setPromptText("카드 번호 입력");
         input.setVisible(true);
 
-        ButtonType closeButton = ButtonType.CLOSE;
+        ButtonType closeButton = new ButtonType("CANCEL", ButtonBar.ButtonData.CANCEL_CLOSE);
         ButtonType OkButton = new ButtonType("결제", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(closeButton, OkButton);
 
@@ -292,8 +293,9 @@ public class PaymentController implements Initializable {
         label.setVisible(true);
         TextField input = (TextField) grid.lookup("#input");
         input.setVisible(true);
+        input.setPromptText("쿠폰 번호 입력");
 
-        ButtonType closeButton = ButtonType.CLOSE;
+        ButtonType closeButton = new ButtonType("CANCEL", ButtonBar.ButtonData.CANCEL_CLOSE);
         ButtonType OkButton = new ButtonType("결제", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(closeButton, OkButton);
 

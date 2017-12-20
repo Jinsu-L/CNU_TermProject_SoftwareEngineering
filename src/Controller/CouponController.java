@@ -103,10 +103,8 @@ public class CouponController implements Initializable {
             dialog.initStyle(StageStyle.UTILITY);
 
             // Add button to dialog
-            ButtonType buttonTypeOk = new ButtonType("CONFIRM", ButtonBar.ButtonData.OK_DONE);
-            ButtonType buttonTypeCancel = new ButtonType("CANCEL", ButtonBar.ButtonData.CANCEL_CLOSE);
+            ButtonType buttonTypeOk = new ButtonType("확인", ButtonBar.ButtonData.OK_DONE);
             dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
-            dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
             GridPane grid = (GridPane) dialog.getDialogPane().getContent();
             Text couponNumberField = new Text();
             couponNumberField.setText(getCouponNumber(selectedCoupon));
