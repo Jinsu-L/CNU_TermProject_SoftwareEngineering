@@ -20,6 +20,10 @@ public class DAOPayment {
     private String paymentDate;
 //    private DAOShoppingBasket daoShoppingBasket;
 
+
+    public DAOPayment() {
+    }
+
     public DAOPayment(int paymentNumber, int paymentAmount) {
         this.paymentNumber = paymentNumber;
         this.paymentAmount = paymentAmount;
@@ -133,18 +137,20 @@ public class DAOPayment {
     }
 
     //현금 결제
-    public void insertPayment(int shoppingBasketNumber, int paymentAmount) {
+    public boolean insertPayment(int shoppingBasketNumber, int paymentAmount) {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String query = String.format("INSERT INTO payment VALUES (%d,%d,'%s','%s',%d)", paymentNumber, paymentAmount, Type.CASH.toString().toLowerCase(), new SimpleDateFormat("yyyy-MM-dd").format(new Date()), shoppingBasketNumber);
+        String query = String.format("INSERT INTO payment (payment_amount, payment_type, payment_date, shopping_basket_number) VALUES (%d,'%s','%s',%d)", paymentAmount, Type.CASH.toString().toLowerCase(), new SimpleDateFormat("yyyy-MM-dd").format(new Date()), shoppingBasketNumber);
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
             pstmt = conn.prepareStatement(query);
             pstmt.executeUpdate();
             pstmt.close();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         } finally {
             if (pstmt != null) try {
                 pstmt.close();
@@ -186,14 +192,14 @@ public class DAOPayment {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String query = "SELECT AUTO_INCREMENT FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'pos' AND   TABLE_NAME   = 'payment'";
+        String query = "SELECT * FROM payment";
         try {
             ConnectionManager cm = new ConnectionManager();
             conn = cm.getConnection();
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
             rs.last();
-            size = rs.getInt("AUTO_INCREMENT");
+            size = rs.getRow();
             rs.close();
             pstmt.close();
         } catch (Exception e) {
