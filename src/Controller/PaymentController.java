@@ -314,9 +314,14 @@ public class PaymentController implements Initializable {
                 }
                 if(money > (totalPrice - paidPrice))
                     money = totalPrice - paidPrice;
-
-                if (!PaymentCoupon(money, input.getText()))
+                int result=PaymentCoupon(money, input.getText());
+                if (result==1) {
+                    alert("에러메시지","쿠폰 번호 조회 불가");
                     return "결제 금액 이상";
+                }else if (result==2) {
+                    alert("에러메시지","쿠폰 잔액 부족");
+                    return "결제 금액 이상";
+                }
                 if (paidPrice == totalPrice)
                     paymentStatus = false;
                 return "성공";
@@ -329,12 +334,12 @@ public class PaymentController implements Initializable {
 
     }
 
-    private boolean PaymentCoupon(int money, String CouponNumber) {
-        if(new DAOCouponPayment().insertPayment(basketNumber, CouponNumber, money)){
+    private int PaymentCoupon(int money, String CouponNumber) {
+        int result=new DAOCouponPayment().insertPayment(basketNumber, CouponNumber, money);
+        if(result==0){
             paidPrice += money;
-            return true;
         }
-        return false;
+        return result;
         //paymentInfo.add(new DAOPayment(0, money)); // 쿠폰 버전으로 수정
         /* Todo 일단 paymentInfo에 저장을 해 두었다가 결제가 완료 될 떄 DB에 저장 */
         /* Todo 결제번호는 static 같은 걸로 구현하는게 좋지 않을까? 자동으로 하나씩 올라가도록 */

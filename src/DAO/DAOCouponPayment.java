@@ -45,10 +45,14 @@ public class DAOCouponPayment extends DAOPayment {
         this.couponNumber = paymentCouponNumber;
     }
 
-    public boolean insertPayment(int shoppingBasketNumber, String couponNumber, int paymentAmount) {
+    public int insertPayment(int shoppingBasketNumber, String couponNumber, int paymentAmount) {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        if (DAOCoupon.getCouponAmount(couponNumber) >= paymentAmount) {
+        int couponAmount=DAOCoupon.getCouponAmount(couponNumber);
+        if(couponAmount==-1){
+            return 1;
+            //쿠폰 번호 에러
+        }else if (DAOCoupon.getCouponAmount(couponNumber) >= paymentAmount) {
             String query = String.format("INSERT INTO payment (payment_amount, payment_type, payment_date, shopping_basket_number) VALUES (%d,'%s','%s',%d)", paymentAmount, Type.COUPON.toString().toLowerCase(), new SimpleDateFormat("yyyy-MM-dd").format(new Date()), shoppingBasketNumber);
             try {
                 ConnectionManager cm = new ConnectionManager();
@@ -58,14 +62,12 @@ public class DAOCouponPayment extends DAOPayment {
                 query = String.format("INSERT INTO coupon_payment VALUES (%d,'%s', %d)", getPaymentSize(), couponNumber, paymentAmount);
                 pstmt = conn.prepareStatement(query);
                 pstmt.executeUpdate();
-                query = String.format("UPDATE coupon SET coupon_amount='%d' WHERE coupon_number='%s'", DAOCoupon.getCouponAmount(couponNumber)-paymentAmount, couponNumber);
-                pstmt = conn.prepareStatement(query);
-                pstmt.executeUpdate();
+                DAOCoupon.useCoupon(couponNumber,paymentAmount);
                 pstmt.close();
-                return true;
+                return 0;
             } catch (Exception e) {
                 e.printStackTrace();
-                return false;
+                return 1;
             } finally {
                 if (pstmt != null) try {
                     pstmt.close();
@@ -77,6 +79,9 @@ public class DAOCouponPayment extends DAOPayment {
                 }
             }
         }
-        return false;
+        else {
+            //잔액부족
+            return 2;
+        }
     }
 }
