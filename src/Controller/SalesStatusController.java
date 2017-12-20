@@ -13,10 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -67,6 +64,22 @@ public class SalesStatusController implements Initializable {
         System.out.println("search");
         LocalDate startDate = start.getValue();
         LocalDate endDate = end.getValue();
+        boolean al = false;
+
+        if (LocalDate.now().compareTo(startDate) < 0) {
+            start.setValue(LocalDate.now());
+            startDate = LocalDate.now();
+            al =true;
+        }
+        if (LocalDate.now().compareTo(endDate) < 0) {
+            end.setValue(LocalDate.now());
+            endDate = LocalDate.now();
+            al = true;
+        }
+        if (al)
+            alert("에러 메시지", "미래 날짜 조회");
+
+
         System.out.println(startDate.toString());
         System.out.println(endDate.toString());
         ArrayList<Pair<String, Integer>> PaymentList = DAOPayment.selectPayment(startDate.toString(), endDate.toString());
@@ -116,5 +129,14 @@ public class SalesStatusController implements Initializable {
         public IntegerProperty priceProperty() {
             return price;
         }
+    }
+
+    public void alert(String title, String body) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(body);
+
+        alert.showAndWait();
     }
 }
