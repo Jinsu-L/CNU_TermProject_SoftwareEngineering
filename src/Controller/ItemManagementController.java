@@ -77,7 +77,7 @@ public class ItemManagementController implements Initializable {
                 alert("상품명 중복", "상품명 중복");
             }
         }catch (NumberFormatException n){
-            alert("에러메시지","수량 문자");
+            alert("에러메시지","상품 가격 에러");
         }
 
         loadItemList();
