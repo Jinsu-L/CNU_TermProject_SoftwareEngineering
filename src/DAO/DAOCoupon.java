@@ -31,7 +31,7 @@ public class DAOCoupon {
     }
 
     public static int getCouponAmount(String couponNumber){
-        int couponAmount=0;
+        int couponAmount=-1;
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -41,8 +41,9 @@ public class DAOCoupon {
             conn = cm.getConnection();
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
-            rs.next();
-            couponAmount=rs.getInt("coupon_amount");
+            if(rs.next()) {
+                couponAmount = rs.getInt("coupon_amount");
+            }
             rs.close();
             pstmt.close();
         } catch (Exception e) {
@@ -97,7 +98,7 @@ public class DAOCoupon {
         return this;
     }
 
-    public boolean useCoupon(String couponNumber,int useAmount) {
+    public static boolean useCoupon(String couponNumber,int useAmount) {
         int amount = getCouponAmount(couponNumber);
         if (amount >= useAmount) {
             Connection conn = null;
