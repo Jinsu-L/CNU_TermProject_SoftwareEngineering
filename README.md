@@ -1,5 +1,5 @@
-# CNU_TermProject_SoftwareEngineering
-2017  Fall Semester, CNU, TermProject, SoftwareEngineering, POS System
+# CNU_TermProject_SoftwareEngineering & DataBase
+2017  Fall Semester, CNU, TermProject, SoftwareEngineering, Database POS System
 
 ## 개발 환경
 
